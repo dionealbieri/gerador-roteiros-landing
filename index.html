@@ -1308,6 +1308,117 @@ footer{
   border-color:var(--p);background:rgba(99,102,241,.08);
 }
 
+
+/* ══════════════════════════════════════════
+   MOBILE — revisão completa
+   ══════════════════════════════════════════ */
+@media(max-width:480px){
+
+  /* NAV */
+  nav{padding:12px 16px}
+  .nav-logo{font-size:14px}
+  .nav-cta{padding:8px 16px;font-size:13px}
+
+  /* HERO */
+  .hero{padding:80px 16px 48px}
+  .hero-eyebrow{font-size:13px;padding:8px 14px}
+  .hero h1{font-size:clamp(28px,8vw,40px);letter-spacing:-1px}
+  .hero-sub{font-size:15px}
+  .hero-btns{flex-direction:column;align-items:stretch;gap:12px}
+  .btn-primary,.btn-ghost{width:100%;text-align:center;padding:15px 20px;font-size:15px}
+  .hero-stats{gap:16px}
+  .hero-stat-num{font-size:22px}
+  .hc-float-badge{display:none}
+
+  /* SEÇÕES */
+  .container{padding:0 16px}
+  .problema{padding:56px 16px}
+  .como{padding:56px 16px}
+  .features{padding:56px 16px}
+  .nichos{padding:44px 16px}
+  .prova{padding:56px 16px}
+  .pricing{padding:56px 16px}
+  .seguranca{padding:36px 16px}
+  .faq{padding:56px 16px}
+  .screenshots{padding:56px 16px}
+  .trial{padding:44px 16px}
+  .pre-cta{padding:56px 16px}
+  .cta-final{padding:64px 16px}
+
+  /* TÍTULOS DE SEÇÃO */
+  .section-label{font-size:10px}
+  h2{font-size:clamp(24px,7vw,32px) !important}
+  .section-sub{font-size:15px}
+
+  /* PROBLEMA */
+  .problema-grid{grid-template-columns:1fr}
+
+  /* COMO FUNCIONA */
+  .steps-flow{grid-template-columns:1fr;gap:12px}
+  .steps-flow::before{display:none}
+  .step-num{width:40px;height:40px;font-size:16px}
+
+  /* FEATURES */
+  .feat-grid{grid-template-columns:1fr}
+  .feat-card{padding:20px 16px}
+
+  /* NICHOS */
+  .nicho-chip{font-size:12px;padding:8px 14px}
+
+  /* PROVA SOCIAL */
+  .prova-nums{grid-template-columns:1fr 1fr}
+  .prova-num{font-size:28px}
+  .testimonials{grid-template-columns:1fr}
+
+  /* PRICING */
+  .price-grid{grid-template-columns:1fr;gap:16px}
+  .price-card{padding:24px 20px}
+  .price-val{font-size:48px}
+  .price-cta-group{gap:8px}
+  .price-cta-platform{padding:11px 16px;font-size:13px}
+
+  /* SEGURANÇA */
+  .seg-grid{grid-template-columns:1fr 1fr}
+  .seg-card{padding:16px 12px}
+
+  /* FAQ */
+  .fq{padding:16px}
+  .fq-q{font-size:14px}
+
+  /* SCREENSHOTS */
+  .sc-tabs{flex-wrap:wrap;gap:6px}
+  .sc-tab{font-size:12px;padding:7px 12px}
+
+  /* TRIAL */
+  .trial-inner{grid-template-columns:1fr}
+  .trial-config{flex-direction:column;gap:10px}
+  .trial-stat{padding:12px}
+  .trial-stat-num{font-size:26px}
+  .btn-trial{padding:12px 20px;font-size:14px}
+
+  /* PRE-CTA */
+  .pre-cta-inner{grid-template-columns:1fr}
+  .pre-cta-features{gap:8px}
+
+  /* CTA FINAL */
+  .cta-final h2{font-size:clamp(26px,7vw,38px) !important}
+  .cta-btn-main{width:100%;text-align:center;padding:15px 20px;font-size:15px}
+
+  /* FOOTER */
+  .footer-inner{grid-template-columns:1fr;gap:32px}
+  .footer-bottom{flex-direction:column;text-align:center;gap:8px}
+  .footer-links{flex-wrap:wrap;gap:12px;justify-content:center}
+
+  /* EDITOR — ocultar no mobile */
+  #edit-btn{display:none !important}
+}
+
+@media(max-width:360px){
+  .hero h1{font-size:26px}
+  .prova-nums{grid-template-columns:1fr}
+  .seg-grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
