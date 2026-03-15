@@ -147,12 +147,12 @@ nav{
 /* Título */
 .hero h1{
   font-family:'Fraunces',serif;
-  font-size:clamp(46px,6.5vw,86px);
+  font-size:clamp(34px,4.5vw,58px);
   font-weight:900;
-  line-height:1.0;
-  letter-spacing:-3px;
+  line-height:1.1;
+  letter-spacing:-1.5px;
   color:var(--t1);
-  margin-bottom:22px;
+  margin-bottom:20px;
   text-shadow:0 0 80px rgba(99,102,241,.15);
 }
 .hero h1 em{
@@ -1162,6 +1162,7 @@ footer{
   font-size:10px;color:#4ade80;font-weight:600;margin-left:6px;vertical-align:middle;
 }
 .ep-tab-panel{display:none}
+.ep-select{border:1px solid #1e2d4a;border-radius:6px;padding:7px 10px;font-size:12px;background:#040a14;color:#c8d8f0;font-family:"DM Sans",sans-serif}
 .ep-tab-panel.active{display:block}
 
 
@@ -1257,6 +1258,56 @@ footer{
 
 /* garantia extra anti-vazamento */
 #edit-btn{display:none !important}
+
+/* ── Botões múltiplas plataformas ── */
+.price-cta-group{
+  display:flex;flex-direction:column;gap:8px;margin-top:20px;
+}
+.price-cta-platform{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;
+  text-decoration:none;transition:all .2s;font-family:'DM Sans',sans-serif;
+  border:1.5px solid;cursor:pointer;
+}
+.price-cta-platform.hotmart{
+  background:rgba(255,77,0,.08);color:#ff6b35;border-color:rgba(255,77,0,.3);
+}
+.price-cta-platform.hotmart:hover{
+  background:rgba(255,77,0,.15);box-shadow:0 0 20px rgba(255,77,0,.2);transform:translateY(-1px);
+}
+.price-cta-platform.kiwify{
+  background:rgba(99,102,241,.08);color:#818cf8;border-color:rgba(99,102,241,.3);
+}
+.price-cta-platform.kiwify:hover{
+  background:rgba(99,102,241,.15);box-shadow:0 0 20px rgba(99,102,241,.2);transform:translateY(-1px);
+}
+.price-cta-platform.kirvano{
+  background:rgba(16,185,129,.08);color:#34d399;border-color:rgba(16,185,129,.3);
+}
+.price-cta-platform.kirvano:hover{
+  background:rgba(16,185,129,.15);box-shadow:0 0 20px rgba(16,185,129,.2);transform:translateY(-1px);
+}
+.price-cta-platform.eduzz{
+  background:rgba(245,158,11,.08);color:#fbbf24;border-color:rgba(245,158,11,.3);
+}
+.price-cta-platform.eduzz:hover{
+  background:rgba(245,158,11,.15);box-shadow:0 0 20px rgba(245,158,11,.2);transform:translateY(-1px);
+}
+/* Quando só tem 1 plataforma: usar o estilo padrão sólido/ghost */
+.price-cta-group.single .price-cta-platform{
+  background:var(--p);color:white;border-color:var(--p);
+  box-shadow:0 0 30px rgba(99,102,241,.35);
+}
+.price-cta-group.single .price-cta-platform:hover{
+  background:#4f52d4;transform:translateY(-1px);
+}
+.price-cta-group.single-ghost .price-cta-platform{
+  background:transparent;color:var(--pl);border-color:var(--border);
+}
+.price-cta-group.single-ghost .price-cta-platform:hover{
+  border-color:var(--p);background:rgba(99,102,241,.08);
+}
+
 </style>
 </head>
 <body>
@@ -2051,7 +2102,12 @@ footer{
           <li class="nao">Suporte prioritário</li>
           <li class="nao">Treinamento 1-a-1</li>
         </ul>
-        <a href="#" class="price-cta price-cta-ghost">Escolher Básico</a>
+        <div class="price-cta-group single-ghost" id="cta-group-basico">
+          <a href="#" class="price-cta-platform" id="cta-basico-1" style="display:none"></a>
+          <a href="#" class="price-cta-platform" id="cta-basico-2" style="display:none"></a>
+          <a href="#" class="price-cta-platform" id="cta-basico-3" style="display:none"></a>
+          <a href="#" class="price-cta-platform fallback-basico">Escolher Básico</a>
+        </div>
       </div>
       <!-- PRO -->
       <div class="price-card destaque">
@@ -2070,7 +2126,12 @@ footer{
           <li>Suporte via WhatsApp</li>
           <li class="nao">Treinamento 1-a-1</li>
         </ul>
-        <a href="#" class="price-cta price-cta-solid">Escolher Pro →</a>
+        <div class="price-cta-group single" id="cta-group-pro">
+          <a href="#" class="price-cta-platform" id="cta-pro-1" style="display:none"></a>
+          <a href="#" class="price-cta-platform" id="cta-pro-2" style="display:none"></a>
+          <a href="#" class="price-cta-platform" id="cta-pro-3" style="display:none"></a>
+          <a href="#" class="price-cta-platform fallback-pro">Escolher Pro →</a>
+        </div>
         <div style="text-align:center;margin-top:10px;font-size:12px;color:#6ee7b7;display:flex;align-items:center;justify-content:center;gap:6px">
           <span>🛡️</span> Garantia de 7 dias — sem risco
         </div>
@@ -2091,7 +2152,12 @@ footer{
           <li>Suporte prioritário 24h</li>
           <li>Treinamento 1-a-1 incluso</li>
         </ul>
-        <a href="#" class="price-cta price-cta-ghost">Escolher Ilimitado</a>
+        <div class="price-cta-group single-ghost" id="cta-group-ilimitado">
+          <a href="#" class="price-cta-platform" id="cta-ilimitado-1" style="display:none"></a>
+          <a href="#" class="price-cta-platform" id="cta-ilimitado-2" style="display:none"></a>
+          <a href="#" class="price-cta-platform" id="cta-ilimitado-3" style="display:none"></a>
+          <a href="#" class="price-cta-platform fallback-ilimitado">Escolher Ilimitado →</a>
+        </div>
       </div>
     </div>
     <p class="price-note">
@@ -2309,10 +2375,55 @@ footer{
       <div class="ep-section">
         <div class="ep-section-title">Informações básicas</div>
         <div class="ep-field"><label>Nome do produto</label><input id="cfg-nome" type="text"></div>
-        <div class="ep-field"><label>Link checkout — Plano Básico</label><input id="cfg-url-basico" type="url" placeholder="https://pay.hotmart.com/BASICO..."></div>
-        <div class="ep-field"><label>Link checkout — Plano Pro</label><input id="cfg-url-pro" type="url" placeholder="https://pay.hotmart.com/PRO..."></div>
-        <div class="ep-field"><label>Link checkout — Plano Ilimitado</label><input id="cfg-url-ilimitado" type="url" placeholder="https://pay.hotmart.com/ILIMITADO..."></div>
-        <div class="ep-field"><label>Link checkout — Botões gerais (hero/CTA final)</label><input id="cfg-url" type="url" placeholder="https://pay.hotmart.com/..."><div style="font-size:11px;color:#4ade80;margin-top:4px">✓ Usado nos botões "Quero minha licença" do topo e rodapé</div></div>
+        <div style="font-size:11px;color:#818cf8;margin-bottom:8px;font-weight:600">
+          Adicione até 3 plataformas por plano. Deixe em branco as que não usar.<br>
+          Plataformas: hotmart · kiwify · kirvano · eduzz
+        </div>
+        <!-- BÁSICO -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);margin:8px 0 4px">Plano Básico</div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:6px;margin-bottom:4px">
+          <select id="cfg-plat-basico-1" class="ep-select"><option value="">Plataforma</option><option value="hotmart">Hotmart</option><option value="kiwify">Kiwify</option><option value="kirvano">Kirvano</option><option value="eduzz">Eduzz</option></select>
+          <input id="cfg-url-basico-1" type="url" placeholder="https://...">
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:6px;margin-bottom:4px">
+          <select id="cfg-plat-basico-2" class="ep-select"><option value="">Plataforma</option><option value="hotmart">Hotmart</option><option value="kiwify">Kiwify</option><option value="kirvano">Kirvano</option><option value="eduzz">Eduzz</option></select>
+          <input id="cfg-url-basico-2" type="url" placeholder="https://...">
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:6px;margin-bottom:10px">
+          <select id="cfg-plat-basico-3" class="ep-select"><option value="">Plataforma</option><option value="hotmart">Hotmart</option><option value="kiwify">Kiwify</option><option value="kirvano">Kirvano</option><option value="eduzz">Eduzz</option></select>
+          <input id="cfg-url-basico-3" type="url" placeholder="https://...">
+        </div>
+        <!-- PRO -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);margin:8px 0 4px">Plano Pro</div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:6px;margin-bottom:4px">
+          <select id="cfg-plat-pro-1" class="ep-select"><option value="">Plataforma</option><option value="hotmart">Hotmart</option><option value="kiwify">Kiwify</option><option value="kirvano">Kirvano</option><option value="eduzz">Eduzz</option></select>
+          <input id="cfg-url-pro-1" type="url" placeholder="https://...">
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:6px;margin-bottom:4px">
+          <select id="cfg-plat-pro-2" class="ep-select"><option value="">Plataforma</option><option value="hotmart">Hotmart</option><option value="kiwify">Kiwify</option><option value="kirvano">Kirvano</option><option value="eduzz">Eduzz</option></select>
+          <input id="cfg-url-pro-2" type="url" placeholder="https://...">
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:6px;margin-bottom:10px">
+          <select id="cfg-plat-pro-3" class="ep-select"><option value="">Plataforma</option><option value="hotmart">Hotmart</option><option value="kiwify">Kiwify</option><option value="kirvano">Kirvano</option><option value="eduzz">Eduzz</option></select>
+          <input id="cfg-url-pro-3" type="url" placeholder="https://...">
+        </div>
+        <!-- ILIMITADO -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);margin:8px 0 4px">Plano Ilimitado</div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:6px;margin-bottom:4px">
+          <select id="cfg-plat-ilimitado-1" class="ep-select"><option value="">Plataforma</option><option value="hotmart">Hotmart</option><option value="kiwify">Kiwify</option><option value="kirvano">Kirvano</option><option value="eduzz">Eduzz</option></select>
+          <input id="cfg-url-ilimitado-1" type="url" placeholder="https://...">
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:6px;margin-bottom:4px">
+          <select id="cfg-plat-ilimitado-2" class="ep-select"><option value="">Plataforma</option><option value="hotmart">Hotmart</option><option value="kiwify">Kiwify</option><option value="kirvano">Kirvano</option><option value="eduzz">Eduzz</option></select>
+          <input id="cfg-url-ilimitado-2" type="url" placeholder="https://...">
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:6px;margin-bottom:10px">
+          <select id="cfg-plat-ilimitado-3" class="ep-select"><option value="">Plataforma</option><option value="hotmart">Hotmart</option><option value="kiwify">Kiwify</option><option value="kirvano">Kirvano</option><option value="eduzz">Eduzz</option></select>
+          <input id="cfg-url-ilimitado-3" type="url" placeholder="https://...">
+        </div>
+        <!-- BOTÕES GERAIS -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);margin:8px 0 4px">Botões gerais (hero + CTA final)</div>
+        <div class="ep-field"><input id="cfg-url" type="url" placeholder="https://..."><div style="font-size:11px;color:#4ade80;margin-top:4px">✓ Usado em "Quero minha licença" do topo e rodapé</div></div>
         <div class="ep-field"><label>WhatsApp de suporte</label><input id="cfg-whatsapp" type="text" placeholder="5511999999999"></div>
         <div class="ep-field"><label>E-mail de contato</label><input id="cfg-email" type="email" placeholder="contato@seusite.com"></div>
       </div>
@@ -2530,9 +2641,7 @@ const CFG_KEY = 'gur_page_config';
 const DEFAULTS = {
   nome:     'Gerador Universal de Roteiros',
   url:      '#pricing',
-  urlBasico:    '',
-  urlPro:       '',
-  urlIlimitado: '',
+  plataformas: {basico:[],pro:[],ilimitado:[]},
   whatsapp: '',
   email:    '',
   garantia: '🛡️ Garantia de 7 dias — se não gostar, devolvemos tudo',
@@ -2628,16 +2737,55 @@ function applyConfig(cfg){
     });
   }
 
-  // Links de checkout por plano
-  const priceBtns = document.querySelectorAll('.price-cta');
-  if(priceBtns.length >= 3){
-    const urls = [cfg.urlBasico, cfg.urlPro, cfg.urlIlimitado];
-    const labels = ['Escolher Básico','Escolher Pro →','Escolher Ilimitado'];
-    priceBtns.forEach((btn, i) => {
-      const u = urls[i] && urls[i].trim();
-      if(u){ btn.setAttribute('href', u); btn.setAttribute('target','_blank'); }
+  // Botões de múltiplas plataformas por plano
+  const platLabels = {
+    hotmart: ['🔥', 'Hotmart'],
+    kiwify:  ['💜', 'Kiwify'],
+    kirvano: ['💚', 'Kirvano'],
+    eduzz:   ['⭐', 'Eduzz'],
+  };
+
+  function aplicarPlataformas(plano, itens, estiloFallback){
+    const group = document.getElementById('cta-group-'+plano);
+    if(!group) return;
+    const fallback = group.querySelector('.fallback-'+plano);
+
+    if(!itens || !itens.length){
+      // sem plataforma configurada — mostrar fallback
+      if(fallback) fallback.style.display = '';
+      [1,2,3].forEach(i => {
+        const el = document.getElementById('cta-'+plano+'-'+i);
+        if(el) el.style.display = 'none';
+      });
+      group.className = 'price-cta-group ' + estiloFallback;
+      return;
+    }
+
+    // esconder fallback
+    if(fallback) fallback.style.display = 'none';
+
+    itens.forEach((item, idx) => {
+      const el = document.getElementById('cta-'+plano+'-'+(idx+1));
+      if(!el) return;
+      const info = platLabels[item.plat] || ['🛒', item.plat];
+      el.textContent = info[0] + ' Comprar — ' + info[1];
+      el.className = 'price-cta-platform ' + (item.plat||'');
+      el.setAttribute('href', item.url);
+      el.setAttribute('target', '_blank');
+      el.style.display = '';
     });
+    // esconder slots não usados
+    for(let i = itens.length+1; i <= 3; i++){
+      const el = document.getElementById('cta-'+plano+'-'+i);
+      if(el) el.style.display = 'none';
+    }
+    group.className = 'price-cta-group' + (itens.length === 1 ? ' single' : '');
   }
+
+  const plats = cfg.plataformas || {basico:[],pro:[],ilimitado:[]};
+  aplicarPlataformas('basico',    plats.basico||[],    'single-ghost');
+  aplicarPlataformas('pro',       plats.pro||[],       'single');
+  aplicarPlataformas('ilimitado', plats.ilimitado||[], 'single-ghost');
 
   // Link trial (WhatsApp)
   if(cfg.whatsapp){
@@ -2704,9 +2852,11 @@ function epSalvar(){
   const cfg = {
     nome:       document.getElementById('cfg-nome').value,
     url:          document.getElementById('cfg-url').value,
-    urlBasico:    document.getElementById('cfg-url-basico').value,
-    urlPro:       document.getElementById('cfg-url-pro').value,
-    urlIlimitado: document.getElementById('cfg-url-ilimitado').value,
+    plataformas: {
+      basico: [1,2,3].map(i=>({plat:document.getElementById('cfg-plat-basico-'+i).value, url:document.getElementById('cfg-url-basico-'+i).value})).filter(x=>x.plat&&x.url),
+      pro:    [1,2,3].map(i=>({plat:document.getElementById('cfg-plat-pro-'+i).value,    url:document.getElementById('cfg-url-pro-'+i).value})).filter(x=>x.plat&&x.url),
+      ilimitado:[1,2,3].map(i=>({plat:document.getElementById('cfg-plat-ilimitado-'+i).value,url:document.getElementById('cfg-url-ilimitado-'+i).value})).filter(x=>x.plat&&x.url),
+    },
     whatsapp:   document.getElementById('cfg-whatsapp').value,
     email:      document.getElementById('cfg-email').value,
     garantia:   document.getElementById('cfg-garantia').value,
