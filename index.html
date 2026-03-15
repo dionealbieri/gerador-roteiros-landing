@@ -3163,19 +3163,20 @@ window.addEventListener('DOMContentLoaded', ()=>{
     const cfg = await resp.json();
     if(!Object.keys(cfg).length) return;
 
-    // Título hero
+    const T = (sel, txt) => { const e = document.querySelector(sel); if(e && txt) e.innerHTML = txt; };
+    const TA = (sel, txt) => document.querySelectorAll(sel).forEach(e => { if(txt) e.innerHTML = txt; });
+
+    // ── HERO ──────────────────────────────────────────
     const h1 = document.querySelector('.hero h1');
-    if(h1 && cfg.h1){
+    if(h1 && (cfg.h1 || cfg.h2 || cfg.h3)){
       h1.innerHTML = (cfg.h1||'Chega de') + '<br>' +
                      (cfg.h2||'roteiro em branco.') + '<br>' +
                      '<em>' + (cfg.h3||'A IA escreve por você.') + '</em>';
     }
+    T('.hero-sub', cfg.sub);
+    T('.hero-eyebrow', cfg.eyebrow ? '● ' + cfg.eyebrow.replace(/^●\s*/,'') : null);
 
-    // Subtítulo
-    const sub = document.querySelector('.hero-sub');
-    if(sub && cfg.sub) sub.innerHTML = cfg.sub;
-
-    // Botões CTA texto
+    // Botões hero
     document.querySelectorAll('.btn-primary').forEach(b => {
       if(cfg.cta1 && b.textContent.includes('Quero')) b.textContent = cfg.cta1;
     });
@@ -3183,50 +3184,127 @@ window.addEventListener('DOMContentLoaded', ()=>{
       if(cfg.cta2 && b.textContent.includes('funciona')) b.textContent = cfg.cta2;
     });
 
-    // Preços
-    const precos = {basico: cfg.preco_basico, pro: cfg.preco_pro, ilimitado: cfg.preco_ilimitado};
-    document.querySelectorAll('.price-val').forEach((el, i) => {
-      const vals = [precos.basico, precos.pro, precos.ilimitado];
-      if(vals[i]) el.innerHTML = '<sup>R$</sup>' + vals[i];
-    });
+    // Badge garantia
+    const gBadge = document.querySelector('.hero-left [style*="6ee7b7"]');
+    if(gBadge && cfg.garantia) gBadge.textContent = cfg.garantia;
 
-    // Links de checkout
-    const urls = {basico: cfg.url_basico, pro: cfg.url_pro, ilimitado: cfg.url_ilimitado};
-    ['basico','pro','ilimitado'].forEach(plano => {
-      const url = urls[plano];
+    // Stats hero
+    const statNums = document.querySelectorAll('.hero-stat-num');
+    const statLbls = document.querySelectorAll('.hero-stat-lbl');
+    const sn = [cfg.stat1_num, cfg.stat2_num, cfg.stat3_num];
+    const sl = [cfg.stat1_lbl, cfg.stat2_lbl, cfg.stat3_lbl];
+    statNums.forEach((e,i) => { if(sn[i]) e.textContent = sn[i]; });
+    statLbls.forEach((e,i) => { if(sl[i]) e.textContent = sl[i]; });
+
+    // ── PLANOS ────────────────────────────────────────
+    const precos = [cfg.preco_basico, cfg.preco_pro, cfg.preco_ilimitado];
+    const nomesP = [cfg.p1_nome, cfg.p2_nome, cfg.p3_nome];
+    const rotsP  = [cfg.p1_rot,  cfg.p2_rot,  cfg.p3_rot];
+    document.querySelectorAll('.price-val').forEach((el,i) => {
+      if(precos[i]) el.innerHTML = '<sup>R$</sup>' + precos[i];
+    });
+    document.querySelectorAll('.price-plan').forEach((el,i) => {
+      if(nomesP[i]) el.textContent = nomesP[i];
+    });
+    if(cfg.price_note) T('.price-note', cfg.price_note);
+
+    // Links checkout
+    ['basico','pro','ilimitado'].forEach((plano, i) => {
+      const url = [cfg.url_basico, cfg.url_pro, cfg.url_ilimitado][i];
       if(!url) return;
-      const fallback = document.querySelector('.fallback-' + plano);
-      if(fallback){
-        fallback.setAttribute('href', url);
-        fallback.setAttribute('target', '_blank');
-      }
+      const fb = document.querySelector('.fallback-' + plano);
+      if(fb){ fb.setAttribute('href', url); fb.setAttribute('target','_blank'); }
     });
-
-    // Link geral (hero + CTA final)
     if(cfg.url_geral){
       document.querySelectorAll('a.btn-primary, a.cta-btn-main').forEach(a => {
         a.setAttribute('href', cfg.url_geral);
-        a.setAttribute('target', '_blank');
+        a.setAttribute('target','_blank');
       });
     }
 
-    // WhatsApp — botão trial
+    // ── PROVA SOCIAL ──────────────────────────────────
+    const nCards = document.querySelectorAll('.num-card .n');
+    const nLbls  = document.querySelectorAll('.num-card p');
+    const ns = [cfg.num1, cfg.num2, cfg.num3, cfg.num4];
+    const nl = [cfg.num1_lbl, cfg.num2_lbl, cfg.num3_lbl, cfg.num4_lbl];
+    nCards.forEach((e,i) => { if(ns[i]) e.textContent = ns[i]; });
+    nLbls.forEach((e,i)  => { if(nl[i]) e.textContent = nl[i]; });
+
+    const testis = document.querySelectorAll('.testi');
+    [[cfg.t1_nome,cfg.t1_canal,cfg.t1_txt],
+     [cfg.t2_nome,cfg.t2_canal,cfg.t2_txt],
+     [cfg.t3_nome,cfg.t3_canal,cfg.t3_txt]].forEach(([nome,canal,txt], i) => {
+      if(!testis[i]) return;
+      const n = testis[i].querySelector('.testi-name');
+      const c = testis[i].querySelector('.testi-canal');
+      const t = testis[i].querySelector('.testi-text');
+      if(n && nome) n.textContent = nome;
+      if(c && canal) c.textContent = canal;
+      if(t && txt) t.textContent = txt;
+    });
+
+    // ── TRIAL ─────────────────────────────────────────
+    if(cfg.trial_dias){
+      const td = document.getElementById('trial-dias-val');
+      if(td) td.textContent = cfg.trial_dias;
+    }
+    if(cfg.trial_rot){
+      const tr = document.getElementById('trial-rot-val');
+      if(tr) tr.textContent = cfg.trial_rot;
+    }
+    if(cfg.trial_btn){
+      const wb = document.getElementById('link-whatsapp-trial');
+      if(wb) wb.querySelector ? wb.childNodes.forEach(n => { if(n.nodeType===3 && n.textContent.includes('Solicitar')) n.textContent = ' ' + cfg.trial_btn; }) : null;
+    }
+    if(cfg.trial_nota){
+      const tn = document.querySelector('.btn-trial-wp + span, #link-whatsapp-trial + span, #link-whatsapp-trial ~ div');
+      if(tn) tn.textContent = cfg.trial_nota;
+    }
+
+    // Benefícios do trial
+    const tBenef = document.querySelectorAll('.trial-itens li');
+    [cfg.trial_b1, cfg.trial_b2, cfg.trial_b3, cfg.trial_b4].forEach((txt, i) => {
+      if(tBenef[i] && txt) tBenef[i].innerHTML = '<div class="ic-g">✓</div> ' + txt;
+    });
+
+    // ── WHATSAPP ──────────────────────────────────────
     if(cfg.whatsapp){
       const wurl = 'https://wa.me/' + cfg.whatsapp.replace(/\D/g,'') +
         '?text=' + encodeURIComponent('Olá! Gostaria de solicitar um trial do Gerador Universal de Roteiros.');
-      const lt = document.getElementById('link-whatsapp-trial');
-      const bt = document.getElementById('btn-trial-cta');
-      if(lt) lt.setAttribute('href', wurl);
-      if(bt) bt.setAttribute('href', wurl);
+      ['link-whatsapp-trial','btn-trial-cta'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.setAttribute('href', wurl);
+      });
     }
 
-    // Email suporte no footer
+    // ── EMAIL ─────────────────────────────────────────
     if(cfg.email){
       document.querySelectorAll('a[href^="mailto"]').forEach(a => {
         a.setAttribute('href', 'mailto:' + cfg.email);
         a.textContent = cfg.email;
       });
     }
+
+    // ── FOOTER ────────────────────────────────────────
+    const fbDesc = document.querySelector('.footer-brand p');
+    if(fbDesc && cfg.footer_desc) fbDesc.textContent = cfg.footer_desc;
+    if(cfg.politica) document.querySelectorAll('a[href*="reembolso"]').forEach(a => a.setAttribute('href', cfg.politica));
+    if(cfg.termos)   document.querySelectorAll('a[href*="termos"]').forEach(a => a.setAttribute('href', cfg.termos));
+
+    // ── CTA FINAL ─────────────────────────────────────
+    const ctaH2 = document.querySelector('.cta-final h2');
+    if(ctaH2 && (cfg.cta_h1 || cfg.cta_h2)){
+      ctaH2.innerHTML = (cfg.cta_h1||'Pare de escrever.') + '<br><em>' + (cfg.cta_h2||'Comece a publicar.') + '</em>';
+    }
+    T('.cta-final-desc', cfg.cta_desc);
+    const ctaBtn = document.querySelector('.cta-btn-main');
+    if(ctaBtn && cfg.cta_btn) ctaBtn.textContent = cfg.cta_btn;
+
+    // Selos
+    const selos = document.querySelectorAll('.cta-selos span');
+    [cfg.selo1, cfg.selo2, cfg.selo3, cfg.selo4].forEach((txt,i) => {
+      if(selos[i] && txt) selos[i].textContent = txt;
+    });
 
   } catch(e) {
     // Servidor indisponível — página funciona com valores padrão do HTML
