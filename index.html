@@ -99,7 +99,7 @@ nav{
   position:relative;
   min-height:100vh;
   display:flex;align-items:center;justify-content:center;
-  padding:100px 40px 60px;
+  padding:120px 40px 80px;
   overflow:hidden;
 }
 .hero-bg{
@@ -138,7 +138,7 @@ nav{
   background:rgba(99,102,241,.15);
   border:1px solid rgba(99,102,241,.35);
   border-radius:100px;
-  padding:8px 18px;font-size:13px;font-weight:700;
+  padding:10px 22px;font-size:16px;font-weight:700;
   color:var(--pl);letter-spacing:.5px;margin-bottom:24px;
 }
 .hero-eyebrow::before{content:'●';font-size:8px;color:var(--g);animation:pulse 2s ease-in-out infinite}
@@ -147,12 +147,13 @@ nav{
 /* Título */
 .hero h1{
   font-family:'Fraunces',serif;
-  font-size:clamp(38px,5.5vw,72px);
+  font-size:clamp(46px,6.5vw,86px);
   font-weight:900;
   line-height:1.0;
-  letter-spacing:-2.5px;
+  letter-spacing:-3px;
   color:var(--t1);
-  margin-bottom:20px;
+  margin-bottom:22px;
+  text-shadow:0 0 80px rgba(99,102,241,.15);
 }
 .hero h1 em{
   font-style:italic;
@@ -257,7 +258,7 @@ nav{
 }
 
 @media(max-width:960px){
-  .hero{padding:70px 24px 60px}
+  .hero{padding:100px 24px 60px}
   .hero-content{grid-template-columns:1fr;gap:40px}
   .hero-left{align-items:center;text-align:center}
   .hero-sub{max-width:520px;text-align:center}
@@ -320,7 +321,7 @@ nav{
 
 /* ── LOGOS / TRUST ──────────────────────── */
 .trust{
-  padding:28px 24px;
+  padding:40px 24px;
   text-align:center;
   border-bottom:1px solid var(--border);
   position:relative;z-index:1;
@@ -350,7 +351,7 @@ section{position:relative;z-index:1}
 .section-label::before{content:'';width:24px;height:2px;background:var(--p);display:inline-block}
 
 /* ── PROBLEMA ────────────────────────────── */
-.problema{padding:70px 24px}
+.problema{padding:100px 24px}
 .problema-grid{
   display:grid;grid-template-columns:1fr 1fr;
   gap:60px;align-items:center;
@@ -384,7 +385,7 @@ section{position:relative;z-index:1}
 .pain-card p{font-size:13px;color:var(--t3);line-height:1.5}
 
 /* ── COMO FUNCIONA ───────────────────────── */
-.como{padding:70px 24px;background:linear-gradient(180deg,transparent,rgba(34,211,238,.04) 40%,transparent);position:relative}
+.como{padding:100px 24px;background:linear-gradient(180deg,transparent,rgba(34,211,238,.04) 40%,transparent);position:relative}
 .como-header{text-align:center;margin-bottom:70px}
 .como-header h2{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,50px);font-weight:700;line-height:1.15;margin-bottom:16px}
 .como-header p{color:var(--t2);font-size:17px;max-width:520px;margin:0 auto}
@@ -426,7 +427,7 @@ section{position:relative;z-index:1}
 .step-icon{font-size:32px;margin-bottom:14px;display:block}
 
 /* ── FEATURES ────────────────────────────── */
-.features{padding:70px 24px}
+.features{padding:100px 24px}
 .features-header{text-align:center;margin-bottom:70px}
 .features-header h2{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,50px);font-weight:700;line-height:1.15;margin-bottom:16px}
 .features-header p{color:var(--t2);font-size:17px;max-width:520px;margin:0 auto}
@@ -460,7 +461,7 @@ section{position:relative;z-index:1}
 .feat-card p{font-size:13px;color:var(--t2);line-height:1.6}
 
 /* ── NICHOS ──────────────────────────────── */
-.nichos{padding:56px 24px;background:linear-gradient(180deg,transparent,rgba(16,185,129,.025) 50%,transparent)}
+.nichos{padding:80px 24px;background:linear-gradient(180deg,transparent,rgba(16,185,129,.025) 50%,transparent)}
 .nichos-header{text-align:center;margin-bottom:48px}
 .nichos-header h2{font-family:'Fraunces',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;margin-bottom:12px}
 .nichos-header p{color:var(--t2);font-size:16px}
@@ -481,7 +482,7 @@ section{position:relative;z-index:1}
 .nicho-chip span{font-size:18px}
 
 /* ── RESULTADOS / PROVA ──────────────────── */
-.prova{padding:70px 24px;background:linear-gradient(180deg,transparent,rgba(99,102,241,.04) 30%,transparent)}
+.prova{padding:100px 24px;background:linear-gradient(180deg,transparent,rgba(99,102,241,.04) 30%,transparent)}
 .prova-nums{
   display:grid;grid-template-columns:repeat(4,1fr);
   gap:2px;margin-bottom:80px;
@@ -521,7 +522,7 @@ section{position:relative;z-index:1}
 .testi-canal{font-size:12px;color:var(--t3)}
 
 /* ── PRICING ─────────────────────────────── */
-.pricing{padding:70px 24px;position:relative}
+.pricing{padding:100px 24px;position:relative}
 .pricing-header{text-align:center;margin-bottom:60px}
 .pricing-header h2{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.15;margin-bottom:16px}
 .pricing-header p{color:var(--t2);font-size:17px;max-width:480px;margin:0 auto}
@@ -583,7 +584,7 @@ section{position:relative;z-index:1}
 .price-note strong{color:var(--t2)}
 
 /* ── SEGURANÇA ──────────────────────────── */
-.seguranca{padding:44px 24px}
+.seguranca{padding:60px 24px}
 .seg-grid{
   display:grid;grid-template-columns:repeat(4,1fr);
   gap:16px;
@@ -597,7 +598,7 @@ section{position:relative;z-index:1}
 .seg-card p{font-size:12px;color:var(--t3);line-height:1.5}
 
 /* ── FAQ ─────────────────────────────────── */
-.faq{padding:70px 24px;background:linear-gradient(180deg,transparent,rgba(99,102,241,.03) 50%,transparent)}
+.faq{padding:100px 24px;background:linear-gradient(180deg,transparent,rgba(99,102,241,.03) 50%,transparent)}
 .faq-header{text-align:center;margin-bottom:56px}
 .faq-header h2{font-family:'Fraunces',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;margin-bottom:12px}
 .faq-wrap{max-width:700px;margin:0 auto}
@@ -618,7 +619,7 @@ section{position:relative;z-index:1}
 
 /* ── PRÉ-CTA — mockup + descrição ─────────── */
 .pre-cta{
-  padding:70px 24px;
+  padding:100px 24px;
   background:linear-gradient(180deg,transparent,rgba(99,102,241,.04) 30%,rgba(34,211,238,.03) 70%,transparent);
   position:relative;
 }
@@ -741,7 +742,7 @@ section{position:relative;z-index:1}
 
 /* ── CTA FINAL ───────────────────────────── */
 .cta-final{
-  padding:70px 24px;text-align:center;
+  padding:100px 24px;text-align:center;
   background:linear-gradient(135deg,rgba(99,102,241,.12) 0%,transparent 50%,rgba(34,211,238,.07) 100%);
   position:relative;overflow:hidden;
 }
@@ -785,7 +786,7 @@ section{position:relative;z-index:1}
 footer{
   background:#040916;
   border-top:1px solid #1a2540;
-  padding:44px 24px 32px;
+  padding:60px 24px 32px;
   position:relative;z-index:1;
 }
 .footer-inner{
@@ -842,7 +843,7 @@ footer{
 }
 
 /* ── SCREENSHOTS ────────────────────────────── */
-.screenshots{padding:70px 24px;background:linear-gradient(180deg,transparent,rgba(99,102,241,.04) 40%,transparent)}
+.screenshots{padding:100px 24px;background:linear-gradient(180deg,transparent,rgba(99,102,241,.04) 40%,transparent)}
 .screenshots-header{text-align:center;margin-bottom:64px}
 .screenshots-header h2{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,50px);font-weight:700;line-height:1.15;margin-bottom:16px}
 .screenshots-header p{color:var(--t2);font-size:17px;max-width:520px;margin:0 auto}
@@ -1094,7 +1095,7 @@ footer{
 /* ── PAINEL DE EDIÇÃO ─────────────────────────── */
 #edit-btn{
   position:fixed;bottom:28px;right:28px;z-index:9999;
-  display:none;
+  display:none !important;
   width:52px;height:52px;border-radius:50%;
   background:var(--p);color:white;border:none;
   font-size:20px;cursor:pointer;
@@ -1165,7 +1166,7 @@ footer{
 
 
 /* ── TRIAL ───────────────────────────────── */
-.trial{padding:56px 24px;position:relative}
+.trial{padding:80px 24px;position:relative}
 .trial-inner{
   max-width:1060px;margin:0 auto;
   display:grid;grid-template-columns:1fr 1fr;
@@ -1254,24 +1255,8 @@ footer{
   .trial-inner{grid-template-columns:1fr}
 }
 
-
-/* ── Botão Trial WhatsApp ── */
-.btn-trial-wp{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  width:fit-content;white-space:nowrap;
-  background:transparent;color:var(--g);
-  border:1.5px solid rgba(16,185,129,.45);
-  border-radius:100px;
-  padding:13px 32px;font-size:15px;font-weight:600;
-  text-decoration:none;font-family:'DM Sans',sans-serif;
-  transition:background .2s,box-shadow .2s,transform .15s;
-}
-.btn-trial-wp:hover{
-  background:rgba(16,185,129,.12);
-  box-shadow:0 0 28px rgba(16,185,129,.25);
-  transform:translateY(-2px);
-}
-
+/* garantia extra anti-vazamento */
+#edit-btn{display:none !important}
 </style>
 </head>
 <body>
@@ -2128,10 +2113,18 @@ footer{
       <p>Entendemos que você quer ver o sistema funcionando antes de investir. Por isso oferecemos um período de teste — com acesso real ao sistema, sem cartão de crédito.</p>
       <p>Entre em contato pelo WhatsApp ou e-mail e solicite seu trial. Você escolhe quantos dias quer testar e quantos roteiros gerar — a gente configura na hora.</p>
       <div style="display:flex;flex-direction:column;gap:12px;margin-top:24px">
-        <a href="#" id="link-whatsapp-trial" class="btn-trial-wp">
+        <a href="#" id="link-whatsapp-trial"
+           style="display:inline-flex;align-items:center;gap:8px;
+                  background:transparent;color:var(--g);
+                  border:1.5px solid rgba(16,185,129,.4);border-radius:100px;
+                  padding:13px 28px;font-size:15px;font-weight:600;
+                  text-decoration:none;white-space:nowrap;
+                  transition:all .2s;font-family:'DM Sans',sans-serif;"
+           onmouseover="this.style.background='rgba(16,185,129,.1)'"
+           onmouseout="this.style.background='transparent'">
           💬 Solicitar trial pelo WhatsApp
         </a>
-        <span style="font-size:12px;color:var(--t3);margin-top:4px">Resposta em até 24h &nbsp;·&nbsp; Sem compromisso</span>
+        <div style="font-size:12px;color:var(--t3);margin-top:8px">Resposta em até 24h • Sem compromisso</div>
       </div>
     </div>
 
@@ -2316,7 +2309,10 @@ footer{
       <div class="ep-section">
         <div class="ep-section-title">Informações básicas</div>
         <div class="ep-field"><label>Nome do produto</label><input id="cfg-nome" type="text"></div>
-        <div class="ep-field"><label>Link do botão de compra (URL do checkout)</label><input id="cfg-url" type="url" placeholder="https://pay.hotmart.com/..."><div style="font-size:11px;color:#4ade80;margin-top:4px">✓ Substitui automaticamente todos os botões "Quero minha licença" da página</div></div>
+        <div class="ep-field"><label>Link checkout — Plano Básico</label><input id="cfg-url-basico" type="url" placeholder="https://pay.hotmart.com/BASICO..."></div>
+        <div class="ep-field"><label>Link checkout — Plano Pro</label><input id="cfg-url-pro" type="url" placeholder="https://pay.hotmart.com/PRO..."></div>
+        <div class="ep-field"><label>Link checkout — Plano Ilimitado</label><input id="cfg-url-ilimitado" type="url" placeholder="https://pay.hotmart.com/ILIMITADO..."></div>
+        <div class="ep-field"><label>Link checkout — Botões gerais (hero/CTA final)</label><input id="cfg-url" type="url" placeholder="https://pay.hotmart.com/..."><div style="font-size:11px;color:#4ade80;margin-top:4px">✓ Usado nos botões "Quero minha licença" do topo e rodapé</div></div>
         <div class="ep-field"><label>WhatsApp de suporte</label><input id="cfg-whatsapp" type="text" placeholder="5511999999999"></div>
         <div class="ep-field"><label>E-mail de contato</label><input id="cfg-email" type="email" placeholder="contato@seusite.com"></div>
       </div>
@@ -2482,7 +2478,8 @@ function unlockEditor(){
   if(pass === null) return;
   if(pass === EDITOR_PASS){
     sessionStorage.setItem(EDITOR_KEY, '1');
-    document.getElementById('edit-btn').style.display = 'flex';
+    const eb = document.getElementById('edit-btn');
+    eb.style.setProperty('display','flex','important');
     toggleEditor();
   } else {
     alert('❌ Senha incorreta.');
@@ -2533,14 +2530,17 @@ const CFG_KEY = 'gur_page_config';
 const DEFAULTS = {
   nome:     'Gerador Universal de Roteiros',
   url:      '#pricing',
+  urlBasico:    '',
+  urlPro:       '',
+  urlIlimitado: '',
   whatsapp: '',
   email:    '',
   garantia: '🛡️ Garantia de 7 dias — se não gostar, devolvemos tudo',
   cta1:     'Quero minha licença →',
   cta2:     '✦   Quero minha licença agora   ✦',
-  txtH1:    'Sua IA que',
-  txtH2:    'escreve roteiros',
-  txtH3:    'no seu estilo',
+  txtH1:    'Chega de',
+  txtH2:    'A IA escreve por você.',
+  txtH3:    'roteiro em branco.',
   txtSub:   'Pare de gastar horas escrevendo. Importe seus exemplos, a IA aprende o estilo do seu canal e gera <strong>roteiros completos e originais</strong> em segundos — no seu idioma.',
   txtCta1:  'Pare de escrever.',
   txtCta2:  'Comece a publicar.',
@@ -2569,8 +2569,12 @@ function applyConfig(cfg){
   r.setProperty('--ink', cfg.cBg);
 
   // Hero title
+  // Só altera o h1 se o usuário salvou uma configuração customizada
   const h1 = document.querySelector('.hero h1');
-  if(h1) h1.innerHTML = cfg.txtH1 + '<br>' + cfg.txtH3 + '<br><em>' + cfg.txtH2 + '</em>';
+  const hasCustom = localStorage.getItem('gur_page_config');
+  if(h1 && hasCustom){
+    h1.innerHTML = cfg.txtH1 + '<br>' + cfg.txtH3 + '<br><em>' + cfg.txtH2 + '</em>';
+  }
 
   // Hero sub
   const sub = document.querySelector('.hero-sub');
@@ -2621,6 +2625,17 @@ function applyConfig(cfg){
     document.querySelectorAll('a[href="#pricing"]').forEach(a => {
       a.setAttribute('href', checkoutUrl);
       a.setAttribute('target', '_blank');
+    });
+  }
+
+  // Links de checkout por plano
+  const priceBtns = document.querySelectorAll('.price-cta');
+  if(priceBtns.length >= 3){
+    const urls = [cfg.urlBasico, cfg.urlPro, cfg.urlIlimitado];
+    const labels = ['Escolher Básico','Escolher Pro →','Escolher Ilimitado'];
+    priceBtns.forEach((btn, i) => {
+      const u = urls[i] && urls[i].trim();
+      if(u){ btn.setAttribute('href', u); btn.setAttribute('target','_blank'); }
     });
   }
 
@@ -2688,7 +2703,10 @@ function epCarregarCampos(){
 function epSalvar(){
   const cfg = {
     nome:       document.getElementById('cfg-nome').value,
-    url:        document.getElementById('cfg-url').value,
+    url:          document.getElementById('cfg-url').value,
+    urlBasico:    document.getElementById('cfg-url-basico').value,
+    urlPro:       document.getElementById('cfg-url-pro').value,
+    urlIlimitado: document.getElementById('cfg-url-ilimitado').value,
     whatsapp:   document.getElementById('cfg-whatsapp').value,
     email:      document.getElementById('cfg-email').value,
     garantia:   document.getElementById('cfg-garantia').value,
