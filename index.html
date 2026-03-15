@@ -23,6 +23,7 @@
   --t3:#3d5070;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;width:100%;max-width:100%}
 html{scroll-behavior:smooth}
 body{
   background:var(--ink);
@@ -1413,6 +1414,24 @@ footer{
   /* EDITOR — ocultar no mobile */
   #edit-btn{display:none !important}
 
+
+  /* CARDS CENTRALIZADOS */
+  .price-card{margin:0 auto;width:100%;max-width:360px}
+  .feat-card{margin:0 auto;width:100%}
+  .seg-card{text-align:center}
+  .nicho-chips{justify-content:center}
+  
+  /* HERO — sem overflow */
+  .hero-content{overflow:hidden;width:100%}
+  .hero-right{overflow:hidden;width:100%;padding:0}
+  
+  /* SCROLLBAR HORIZONTAL — remover */
+  body{overflow-x:hidden}
+  .hero,.container,.pricing,.features,.nichos,.prova,.como,.problema{overflow-x:hidden}
+  
+  /* PRICE GRID mobile */
+  .price-grid{padding:0 4px}
+
   /* HERO CARD — mobile */
   .hero-right{width:100%;padding:0 4px}
   .hero-card{
@@ -1440,7 +1459,60 @@ footer{
   .seg-grid{grid-template-columns:1fr}
 }
 
+
+/* ── HERO MOBILE BENEFITS (substitui mockup) ── */
+.hero-mobile-stats{display:none}
+@media(max-width:960px){
+  .hero-right{display:none}
+  .hero-mobile-stats{
+    display:flex;flex-direction:column;
+    gap:10px;margin-top:28px;width:100%;
+  }
+  .hms-card{
+    display:flex;align-items:center;gap:14px;
+    background:rgba(9,20,40,.7);
+    border:1px solid rgba(99,102,241,.18);
+    border-radius:12px;padding:14px 16px;
+    text-align:left;
+  }
+  .hms-icon{
+    width:40px;height:40px;border-radius:10px;flex-shrink:0;
+    background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;
+  }
+  .hms-text{}
+  .hms-num{font-size:14px;font-weight:700;color:var(--t1);line-height:1.3;margin-bottom:2px}
+  .hms-lbl{font-size:12px;color:var(--t2);line-height:1.4}
+}
+@media(max-width:480px){
+  .hms-card{padding:12px 14px}
+  .hms-icon{width:36px;height:36px;font-size:16px}
+  .hms-num{font-size:13px}
+}
+
+
+/* Screenshots — ocultar mockup no mobile */
+@media(max-width:960px){
+  .sc-panels{display:none}
+  .sc-tabs{display:none}
+  .screenshots-header{margin-bottom:0}
+  .screenshots{padding:40px 16px}
+}
+
 </style>
+<script>
+// Garantir que preços do localStorage não sobrescrevam valores corretos
+(function(){
+  try{
+    var c = JSON.parse(localStorage.getItem('gur_page_config')||'{}');
+    if(c.p1Preco && parseFloat(c.p1Preco) < 90){
+      // Preço inválido/antigo — resetar
+      localStorage.removeItem('gur_page_config');
+    }
+  }catch(e){}
+})();
+</script>
 </head>
 <body>
 
@@ -1480,6 +1552,45 @@ footer{
       <div class="hero-btns">
         <a href="#pricing" class="btn-primary" style="font-size:17px;padding:18px 40px">Quero minha licença →</a>
         <a href="#como-funciona" class="btn-ghost">Ver como funciona ↓</a>
+      </div>
+
+      <!-- Benefits mobile — aparece só abaixo de 960px no lugar do mockup -->
+      <div class="hero-mobile-stats">
+        <div class="hms-card">
+          <div class="hms-icon">⚡</div>
+          <div class="hms-text">
+            <div class="hms-num">Roteiros em segundos</div>
+            <div class="hms-lbl">De 10 a 90 minutos de conteúdo gerado automaticamente</div>
+          </div>
+        </div>
+        <div class="hms-card">
+          <div class="hms-icon">🎯</div>
+          <div class="hms-text">
+            <div class="hms-num">Aprende seu estilo</div>
+            <div class="hms-lbl">Importe seus exemplos e a IA replica sua voz e formato</div>
+          </div>
+        </div>
+        <div class="hms-card">
+          <div class="hms-icon">🌎</div>
+          <div class="hms-text">
+            <div class="hms-num">Qualquer idioma</div>
+            <div class="hms-lbl">Português, Español e English — sem trocar de ferramenta</div>
+          </div>
+        </div>
+        <div class="hms-card">
+          <div class="hms-icon">📦</div>
+          <div class="hms-text">
+            <div class="hms-num">Geração em batch</div>
+            <div class="hms-lbl">Gere 50 roteiros de uma vez enquanto você dorme</div>
+          </div>
+        </div>
+        <div class="hms-card">
+          <div class="hms-icon">🔒</div>
+          <div class="hms-text">
+            <div class="hms-num">Sem assinatura de IA</div>
+            <div class="hms-lbl">Não precisa de ChatGPT, Claude ou qualquer outra conta</div>
+          </div>
+        </div>
       </div>
 
       <div class="hero-stats">
@@ -2238,7 +2349,7 @@ footer{
           <a href="#" class="price-cta-platform" id="cta-basico-1" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-basico-2" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-basico-3" style="display:none"></a>
-          <a href="#" class="price-cta-platform fallback-basico">Escolher Básico</a>
+          <a href="#" class="price-cta-platform fallback-basico">Assinar agora →</a>
         </div>
       </div>
       <!-- PRO -->
@@ -2262,7 +2373,7 @@ footer{
           <a href="#" class="price-cta-platform" id="cta-pro-1" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-pro-2" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-pro-3" style="display:none"></a>
-          <a href="#" class="price-cta-platform fallback-pro">Escolher Pro →</a>
+          <a href="#" class="price-cta-platform fallback-pro">Assinar agora →</a>
         </div>
         <div style="text-align:center;margin-top:10px;font-size:12px;color:#6ee7b7;display:flex;align-items:center;justify-content:center;gap:6px">
           <span>🛡️</span> Garantia de 7 dias — sem risco
@@ -2288,7 +2399,7 @@ footer{
           <a href="#" class="price-cta-platform" id="cta-ilimitado-1" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-ilimitado-2" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-ilimitado-3" style="display:none"></a>
-          <a href="#" class="price-cta-platform fallback-ilimitado">Escolher Ilimitado →</a>
+          <a href="#" class="price-cta-platform fallback-ilimitado">Assinar agora →</a>
         </div>
       </div>
     </div>
@@ -2900,7 +3011,7 @@ function applyConfig(cfg){
       const el = document.getElementById('cta-'+plano+'-'+(idx+1));
       if(!el) return;
       const info = platLabels[item.plat] || ['🛒', item.plat];
-      el.textContent = info[0] + ' Comprar — ' + info[1];
+      el.textContent = 'Assinar agora →';
       el.className = 'price-cta-platform ' + (item.plat||'');
       el.setAttribute('href', item.url);
       el.setAttribute('target', '_blank');
