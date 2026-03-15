@@ -2644,25 +2644,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const urls = [cfg.url_basico, cfg.url_pro, cfg.url_ilimitado];
       ['basico','pro','ilimitado'].forEach((plano, i) => {
         if(!urls[i]) return;
-        // Tentar fallback e também os slots ocultos
-        const els = document.querySelectorAll('.fallback-' + plano + ', #cta-' + plano + '-1, #cta-' + plano + '-2');
-        els.forEach(fb => {
+        // Só atualizar o botão fallback — não mostrar slots ocultos
+        const fb = document.querySelector('.fallback-' + plano);
+        if(fb){
           fb.setAttribute('href', urls[i]);
           fb.setAttribute('target','_blank');
-          fb.style.display = '';
-        });
-        // Garantir que o grupo está visível
-        const grp = document.getElementById('cta-group-' + plano);
-        if(grp) grp.className = 'price-cta-group single' + (plano!=='pro'?' single-ghost':'');
+        }
       });
       if(cfg.url_geral){
         document.querySelectorAll('a.btn-primary, a.cta-btn-main').forEach(a => {
-          a.setAttribute('href', cfg.url_geral); a.setAttribute('target','_blank');
+          a.setAttribute('href', cfg.url_geral);
+          a.setAttribute('target','_blank');
         });
       }
     }
     aplicarLinksCheckout();
-    setTimeout(aplicarLinksCheckout, 800);
+    setTimeout(aplicarLinksCheckout, 1000);
 
     // Prova social
     const nCards = document.querySelectorAll('.num-card .n');
