@@ -3151,5 +3151,89 @@ window.addEventListener('DOMContentLoaded', ()=>{
 });
 
 </script>
+
+<script>
+// ══════════════════════════════════════════════
+// CARREGAR CONFIG DO SERVIDOR AO INICIAR
+// ══════════════════════════════════════════════
+(async function carregarConfigServidor(){
+  try {
+    const resp = await fetch('https://web-production-1bb0.up.railway.app/config/ler', {cache:'no-store'});
+    if(!resp.ok) return;
+    const cfg = await resp.json();
+    if(!Object.keys(cfg).length) return;
+
+    // Título hero
+    const h1 = document.querySelector('.hero h1');
+    if(h1 && cfg.h1){
+      h1.innerHTML = (cfg.h1||'Chega de') + '<br>' +
+                     (cfg.h2||'roteiro em branco.') + '<br>' +
+                     '<em>' + (cfg.h3||'A IA escreve por você.') + '</em>';
+    }
+
+    // Subtítulo
+    const sub = document.querySelector('.hero-sub');
+    if(sub && cfg.sub) sub.innerHTML = cfg.sub;
+
+    // Botões CTA texto
+    document.querySelectorAll('.btn-primary').forEach(b => {
+      if(cfg.cta1 && b.textContent.includes('Quero')) b.textContent = cfg.cta1;
+    });
+    document.querySelectorAll('.btn-ghost').forEach(b => {
+      if(cfg.cta2 && b.textContent.includes('funciona')) b.textContent = cfg.cta2;
+    });
+
+    // Preços
+    const precos = {basico: cfg.preco_basico, pro: cfg.preco_pro, ilimitado: cfg.preco_ilimitado};
+    document.querySelectorAll('.price-val').forEach((el, i) => {
+      const vals = [precos.basico, precos.pro, precos.ilimitado];
+      if(vals[i]) el.innerHTML = '<sup>R$</sup>' + vals[i];
+    });
+
+    // Links de checkout
+    const urls = {basico: cfg.url_basico, pro: cfg.url_pro, ilimitado: cfg.url_ilimitado};
+    ['basico','pro','ilimitado'].forEach(plano => {
+      const url = urls[plano];
+      if(!url) return;
+      const fallback = document.querySelector('.fallback-' + plano);
+      if(fallback){
+        fallback.setAttribute('href', url);
+        fallback.setAttribute('target', '_blank');
+      }
+    });
+
+    // Link geral (hero + CTA final)
+    if(cfg.url_geral){
+      document.querySelectorAll('a.btn-primary, a.cta-btn-main').forEach(a => {
+        a.setAttribute('href', cfg.url_geral);
+        a.setAttribute('target', '_blank');
+      });
+    }
+
+    // WhatsApp — botão trial
+    if(cfg.whatsapp){
+      const wurl = 'https://wa.me/' + cfg.whatsapp.replace(/\D/g,'') +
+        '?text=' + encodeURIComponent('Olá! Gostaria de solicitar um trial do Gerador Universal de Roteiros.');
+      const lt = document.getElementById('link-whatsapp-trial');
+      const bt = document.getElementById('btn-trial-cta');
+      if(lt) lt.setAttribute('href', wurl);
+      if(bt) bt.setAttribute('href', wurl);
+    }
+
+    // Email suporte no footer
+    if(cfg.email){
+      document.querySelectorAll('a[href^="mailto"]').forEach(a => {
+        a.setAttribute('href', 'mailto:' + cfg.email);
+        a.textContent = cfg.email;
+      });
+    }
+
+  } catch(e) {
+    // Servidor indisponível — página funciona com valores padrão do HTML
+    console.warn('Config servidor indisponível:', e.message);
+  }
+})();
+</script>
+
 </body>
 </html>
