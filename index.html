@@ -1479,6 +1479,112 @@ footer{
   .screenshots{padding:40px 16px}
 }
 
+/* ── BÔNUS ───────────────────────────────── */
+.bonus{
+  padding:100px 24px;
+  background:linear-gradient(180deg,transparent,rgba(245,158,11,.04) 30%,rgba(16,185,129,.03) 70%,transparent);
+  position:relative;
+}
+.bonus-header{text-align:center;margin-bottom:64px}
+.bonus-header .section-label{color:var(--y);justify-content:center}
+.bonus-header .section-label::before{background:var(--y)}
+.bonus-header h2{font-family:'Fraunces',serif;font-size:clamp(30px,4vw,50px);font-weight:700;line-height:1.15;margin-bottom:16px}
+.bonus-header h2 em{font-style:italic;color:var(--y)}
+.bonus-header p{color:var(--t2);font-size:17px;max-width:520px;margin:0 auto}
+
+.bonus-ribbon{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);
+  border-radius:100px;padding:7px 18px;
+  font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--y);margin-bottom:24px;
+}
+
+.bonus-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:28px;max-width:960px;margin:0 auto;
+}
+@media(max-width:700px){.bonus-grid{grid-template-columns:1fr}}
+
+.bonus-card{
+  background:var(--card);
+  border:1px solid rgba(245,158,11,.22);
+  border-radius:20px;overflow:hidden;
+  position:relative;
+  transition:transform .2s,box-shadow .2s;
+}
+.bonus-card:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 40px rgba(245,158,11,.1)}
+.bonus-card-top{height:3px;background:linear-gradient(90deg,var(--y),var(--g))}
+.bonus-card-top.blue{background:linear-gradient(90deg,#6366f1,#22d3ee)}
+.bonus-card-body{padding:28px 28px 24px}
+
+.bonus-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);
+  border-radius:100px;padding:5px 14px;
+  font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--y);margin-bottom:18px;
+}
+.bonus-tag.blue{background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.25);color:var(--pl)}
+
+.bonus-icon-wrap{
+  width:60px;height:60px;border-radius:16px;
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;margin-bottom:18px;
+  flex-shrink:0;
+}
+.bonus-icon-wrap.blue{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.2)}
+
+.bonus-card h3{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--t1);margin-bottom:10px;line-height:1.2}
+.bonus-card p{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:20px}
+
+.bonus-features{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.bonus-features li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13px;color:var(--t2);
+}
+.bonus-features li::before{
+  content:'✓';
+  width:18px;height:18px;border-radius:50%;flex-shrink:0;margin-top:1px;
+  background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);
+  color:var(--g);font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.bonus-preview{
+  background:#020710;border:1px solid #1a2540;border-radius:12px;
+  overflow:hidden;margin-top:4px;
+}
+.bonus-prev-bar{
+  display:flex;align-items:center;gap:6px;padding:9px 14px;
+  background:#060e1e;border-bottom:1px solid #1a2540;
+}
+.bonus-prev-dot{width:8px;height:8px;border-radius:50%}
+.bonus-prev-title{font-size:10px;color:#3d5070;font-family:'DM Mono',monospace;margin-left:6px}
+.bonus-prev-body{padding:14px 16px;font-family:'DM Mono',monospace;font-size:11px;line-height:1.75}
+
+.bonus-val{
+  display:flex;align-items:center;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.05);
+}
+.bonus-val-gratis{font-size:16px;font-weight:800;color:var(--g)}
+.bonus-val-orig{font-size:13px;color:var(--t3);text-decoration:line-through}
+.bonus-val-desc{font-size:12px;color:var(--t2);margin-left:auto}
+
+.bonus-total{
+  max-width:960px;margin:48px auto 0;
+  background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(16,185,129,.07));
+  border:1px solid rgba(245,158,11,.25);border-radius:16px;
+  padding:24px 32px;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.bonus-total-txt{flex:1;min-width:200px}
+.bonus-total-txt h4{font-size:17px;font-weight:700;color:var(--t1);margin-bottom:4px}
+.bonus-total-txt p{font-size:14px;color:var(--t2)}
+.bonus-total-val{text-align:right;flex-shrink:0}
+.bonus-total-val .gratis-label{font-size:13px;font-weight:600;color:var(--t3);text-decoration:line-through;margin-bottom:2px}
+.bonus-total-val .gratis-val{font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:var(--g);line-height:1}
+
 </style>
 <script>
 // Garantir que preços do localStorage não sobrescrevam valores corretos
@@ -1701,6 +1807,8 @@ footer{
               <div class="sc-sb-item"><span class="sc-sb-icon">🔍</span> Importar</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📜</span> Gerar Roteiros</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📊</span> Bancos</div>
+              <div class="sc-sb-item"><span class="sc-sb-icon">✂️</span> Divisor de Texto</div>
+              <div class="sc-sb-item"><span class="sc-sb-icon">🔇</span> Remover Silêncio</div>
               <div class="sc-sb-bot">
                 <div class="sc-sb-canal">
                   <div class="sc-sb-canal-lbl">Canal Ativo</div>
@@ -1787,6 +1895,8 @@ footer{
               <div class="sc-sb-item active"><span class="sc-sb-icon">🔍</span> Importar</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📜</span> Gerar Roteiros</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📊</span> Bancos</div>
+              <div class="sc-sb-item"><span class="sc-sb-icon">✂️</span> Divisor de Texto</div>
+              <div class="sc-sb-item"><span class="sc-sb-icon">🔇</span> Remover Silêncio</div>
               <div class="sc-sb-bot">
                 <div class="sc-sb-canal">
                   <div class="sc-sb-canal-lbl">Canal Ativo</div>
@@ -1886,6 +1996,8 @@ footer{
               <div class="sc-sb-item"><span class="sc-sb-icon">🔍</span> Importar</div>
               <div class="sc-sb-item active"><span class="sc-sb-icon">📜</span> Gerar Roteiros</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📊</span> Bancos</div>
+              <div class="sc-sb-item"><span class="sc-sb-icon">✂️</span> Divisor de Texto</div>
+              <div class="sc-sb-item"><span class="sc-sb-icon">🔇</span> Remover Silêncio</div>
               <div class="sc-sb-bot">
                 <div class="sc-sb-canal">
                   <div class="sc-sb-canal-lbl">Canal Ativo</div>
@@ -1994,6 +2106,8 @@ footer{
               <div class="sc-sb-item"><span class="sc-sb-icon">🔍</span> Importar</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📜</span> Gerar Roteiros</div>
               <div class="sc-sb-item active"><span class="sc-sb-icon">📊</span> Bancos</div>
+              <div class="sc-sb-item"><span class="sc-sb-icon">✂️</span> Divisor de Texto</div>
+              <div class="sc-sb-item"><span class="sc-sb-icon">🔇</span> Remover Silêncio</div>
               <div class="sc-sb-bot">
                 <div class="sc-sb-canal">
                   <div class="sc-sb-canal-lbl">Canal Ativo</div>
@@ -2210,8 +2324,120 @@ footer{
   </div>
 </section>
 
+<!-- BÔNUS -->
+<div class="sec-sep"></div>
+<section class="bonus" id="bonus">
+  <div class="container">
+
+    <div class="bonus-header reveal">
+      <div class="section-label">Bônus exclusivos</div>
+      <div class="bonus-ribbon">🎁 &nbsp; Incluído em todos os planos — valor R$ 194</div>
+      <h2>Duas ferramentas extras,<br><em>já dentro do sistema</em></h2>
+      <p>Além do gerador de roteiros, você recebe dois bônus integrados que aceleram ainda mais sua produção — sem instalar nada a mais.</p>
+    </div>
+
+    <div class="bonus-grid reveal">
+
+      <!-- BÔNUS 1: DIVISOR DE TEXTO -->
+      <div class="bonus-card">
+        <div class="bonus-card-top blue"></div>
+        <div class="bonus-card-body">
+          <div class="bonus-tag blue">✂️ &nbsp; Bônus #1</div>
+          <div class="bonus-icon-wrap blue">✂️</div>
+          <h3>Divisor de Texto Inteligente</h3>
+          <p>Cole qualquer roteiro e divida em blocos prontos para narração, edição ou postagem em partes — sem cortar frases no meio.</p>
+          <ul class="bonus-features">
+            <li>Divide por <strong>caracteres</strong> — ideal para limites de TTS e legendas</li>
+            <li>Divide por <strong>palavras</strong> — controle exato de tempo por bloco</li>
+            <li>Divide por <strong>parágrafos/sentenças</strong> — blocos narrativos naturais</li>
+            <li>Contador de caracteres, palavras e <strong>tempo estimado de narração</strong></li>
+            <li>Copiar em 1 clique por bloco — direto para o TTS</li>
+            <li>Salva todos os blocos em .txt com um clique</li>
+          </ul>
+          <div class="bonus-preview">
+            <div class="bonus-prev-bar">
+              <div class="bonus-prev-dot" style="background:#ef4444;opacity:.7"></div>
+              <div class="bonus-prev-dot" style="background:#f59e0b;opacity:.7"></div>
+              <div class="bonus-prev-dot" style="background:#10b981;opacity:.7"></div>
+              <span class="bonus-prev-title">✂️ Divisor de Texto — aba integrada</span>
+            </div>
+            <div class="bonus-prev-body">
+              <div style="color:#3d5070;font-size:10px;margin-bottom:7px">Modo: <span style="color:#818cf8">Parágrafos · 4500 chars/bloco</span></div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+                <div style="background:#091428;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:10px;color:#818cf8">📋 Bloco 1</div>
+                <div style="background:#091428;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:10px;color:#818cf8">📋 Bloco 2</div>
+                <div style="background:#091428;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:10px;color:#818cf8">📋 Bloco 3</div>
+                <div style="background:#091428;border:1px solid rgba(16,185,129,.3);border-radius:6px;padding:4px 10px;font-size:10px;color:#4ade80">📋 Bloco 4</div>
+              </div>
+              <div style="color:#3d5070;font-size:10px">Caracteres: 17.842 &nbsp;·&nbsp; Palavras: 2.681 &nbsp;·&nbsp; ⏱️ Narração: 18min 10s</div>
+            </div>
+          </div>
+          <div class="bonus-val">
+            <span class="bonus-val-orig">R$ 97</span>
+            <span class="bonus-val-gratis">GRÁTIS</span>
+            <span class="bonus-val-desc">incluso em todos os planos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BÔNUS 2: REMOVEDOR DE SILÊNCIO -->
+      <div class="bonus-card">
+        <div class="bonus-card-top"></div>
+        <div class="bonus-card-body">
+          <div class="bonus-tag">🔇 &nbsp; Bônus #2</div>
+          <div class="bonus-icon-wrap">🔇</div>
+          <h3>Removedor de Silêncio com FFmpeg</h3>
+          <p>Processe seus áudios gravados em lote e remova silêncios automaticamente — economizando horas de edição manual toda semana.</p>
+          <ul class="bonus-features">
+            <li>Processa <strong>múltiplos arquivos</strong> de uma vez — .wav, .mp3, .m4a, .flac</li>
+            <li>Controle de <strong>duração mínima</strong> e <strong>threshold de volume</strong> (dB)</li>
+            <li>Exibe duração original, final e <strong>% de redução</strong> por arquivo</li>
+            <li>Arquivo salvo com <strong>_nosil</strong> — original sempre preservado</li>
+            <li>Log em tempo real de cada processamento</li>
+            <li>Totalmente <strong>local</strong> — usa FFmpeg gratuito no seu PC</li>
+          </ul>
+          <div class="bonus-preview">
+            <div class="bonus-prev-bar">
+              <div class="bonus-prev-dot" style="background:#ef4444;opacity:.7"></div>
+              <div class="bonus-prev-dot" style="background:#f59e0b;opacity:.7"></div>
+              <div class="bonus-prev-dot" style="background:#10b981;opacity:.7"></div>
+              <span class="bonus-prev-title">🔇 Remover Silêncio — aba integrada</span>
+            </div>
+            <div class="bonus-prev-body">
+              <div style="color:#3d5070;font-size:10px;margin-bottom:7px">⚙️ periods=<span style="color:#f59e0b">-1</span> &nbsp;·&nbsp; duration=<span style="color:#f59e0b">0.50s</span> &nbsp;·&nbsp; threshold=<span style="color:#f59e0b">-40dB</span></div>
+              <div style="color:#4ade80;font-size:10px;line-height:1.85">
+                ✅ audio_01.wav &nbsp;·&nbsp; 3min 42s → 3min 09s <span style="color:#10b981">(-15.3%)</span><br>
+                ✅ audio_02.wav &nbsp;·&nbsp; 8min 11s → 6min 58s <span style="color:#10b981">(-14.9%)</span><br>
+                <span style="color:#818cf8">⏳ audio_03.wav &nbsp;·&nbsp; processando...</span>
+              </div>
+            </div>
+          </div>
+          <div class="bonus-val">
+            <span class="bonus-val-orig">R$ 97</span>
+            <span class="bonus-val-gratis">GRÁTIS</span>
+            <span class="bonus-val-desc">incluso em todos os planos</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /bonus-grid -->
+
+    <div class="bonus-total reveal">
+      <div style="font-size:36px;flex-shrink:0">🎁</div>
+      <div class="bonus-total-txt">
+        <h4>Valor total dos bônus: R$ 194 — você paga R$ 0</h4>
+        <p>Divisor de Texto + Removedor de Silêncio já estão integrados no sistema. Nenhuma instalação extra, nenhuma conta adicional, nenhum custo a mais.</p>
+      </div>
+      <div class="bonus-total-val">
+        <div class="gratis-label">De R$ 194</div>
+        <div class="gratis-val">GRÁTIS</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- NICHOS -->
-<section class="nichos">
   <div class="container">
     <div class="nichos-header reveal">
       <div class="section-label">Para qualquer nicho</div>
@@ -2321,6 +2547,8 @@ footer{
           <li>Geração em batch</li>
           <li>Legenda SRT inclusa</li>
           <li>Todos os 16 nichos</li>
+          <li>✂️ <strong>Divisor de Texto</strong> incluso</li>
+          <li>🔇 <strong>Removedor de Silêncio</strong> incluso</li>
           <li class="nao">Suporte prioritário</li>
           <li class="nao">Treinamento 1-a-1</li>
         </ul>
@@ -2345,6 +2573,8 @@ footer{
           <li>Geração em batch</li>
           <li>Legenda SRT inclusa</li>
           <li>Todos os 16 nichos</li>
+          <li>✂️ <strong>Divisor de Texto</strong> incluso</li>
+          <li>🔇 <strong>Removedor de Silêncio</strong> incluso</li>
           <li>Suporte via WhatsApp</li>
           <li class="nao">Treinamento 1-a-1</li>
         </ul>
@@ -2371,6 +2601,8 @@ footer{
           <li>Geração em batch</li>
           <li>Legenda SRT inclusa</li>
           <li>Todos os 16 nichos</li>
+          <li>✂️ <strong>Divisor de Texto</strong> incluso</li>
+          <li>🔇 <strong>Removedor de Silêncio</strong> incluso</li>
           <li>Suporte prioritário 24h</li>
           <li>Treinamento 1-a-1 incluso</li>
         </ul>
@@ -2548,6 +2780,7 @@ footer{
       <h4>Produto</h4>
       <a href="#como-funciona">Como funciona</a>
       <a href="#recursos">Recursos</a>
+      <a href="#bonus">Bônus inclusos</a>
       <a href="#pricing">Planos e preços</a>
       <a href="#screenshots">Ver o sistema</a>
     </div>
