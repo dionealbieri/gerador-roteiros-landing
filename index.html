@@ -1479,118 +1479,62 @@ footer{
   .screenshots{padding:40px 16px}
 }
 
-/* ── BÔNUS ───────────────────────────────── */
-.bonus{
-  padding:100px 24px;
-  background:linear-gradient(180deg,transparent,rgba(245,158,11,.04) 30%,rgba(16,185,129,.03) 70%,transparent);
-  position:relative;
+/* ── WHATSAPP FLUTUANTE ──────────────────── */
+#wpp-float{
+  position:fixed;
+  bottom:28px;right:28px;
+  z-index:9999;
+  display:flex;align-items:center;gap:0;
+  text-decoration:none;
+  opacity:0;transform:translateY(20px) scale(.9);
+  transition:opacity .4s ease,transform .4s ease;
+  pointer-events:none;
 }
-.bonus-header{text-align:center;margin-bottom:64px}
-.bonus-header .section-label{color:var(--y);justify-content:center}
-.bonus-header .section-label::before{background:var(--y)}
-.bonus-header h2{font-family:'Fraunces',serif;font-size:clamp(30px,4vw,50px);font-weight:700;line-height:1.15;margin-bottom:16px}
-.bonus-header h2 em{font-style:italic;color:var(--y)}
-.bonus-header p{color:var(--t2);font-size:17px;max-width:520px;margin:0 auto}
-
-.bonus-ribbon{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);
-  border-radius:100px;padding:7px 18px;
-  font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
-  color:var(--y);margin-bottom:24px;
+#wpp-float.visible{
+  opacity:1;transform:translateY(0) scale(1);
+  pointer-events:auto;
 }
-
-.bonus-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:28px;max-width:960px;margin:0 auto;
+#wpp-float-label{
+  background:#fff;color:#111;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  padding:8px 14px;border-radius:100px 0 0 100px;
+  box-shadow:-4px 2px 16px rgba(0,0,0,.18);
+  white-space:nowrap;
+  max-width:0;overflow:hidden;opacity:0;
+  transition:max-width .35s ease,opacity .25s ease,padding .35s ease;
+  padding-left:0;padding-right:0;
 }
-@media(max-width:700px){.bonus-grid{grid-template-columns:1fr}}
-
-.bonus-card{
-  background:var(--card);
-  border:1px solid rgba(245,158,11,.22);
-  border-radius:20px;overflow:hidden;
-  position:relative;
-  transition:transform .2s,box-shadow .2s;
+#wpp-float:hover #wpp-float-label,
+#wpp-float.pulse #wpp-float-label{
+  max-width:240px;opacity:1;
+  padding-left:14px;padding-right:14px;
 }
-.bonus-card:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 40px rgba(245,158,11,.1)}
-.bonus-card-top{height:3px;background:linear-gradient(90deg,var(--y),var(--g))}
-.bonus-card-top.blue{background:linear-gradient(90deg,#6366f1,#22d3ee)}
-.bonus-card-body{padding:28px 28px 24px}
-
-.bonus-tag{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);
-  border-radius:100px;padding:5px 14px;
-  font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
-  color:var(--y);margin-bottom:18px;
-}
-.bonus-tag.blue{background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.25);color:var(--pl)}
-
-.bonus-icon-wrap{
-  width:60px;height:60px;border-radius:16px;
-  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);
+#wpp-float-btn{
+  width:58px;height:58px;border-radius:50%;
+  background:#25d366;
   display:flex;align-items:center;justify-content:center;
-  font-size:28px;margin-bottom:18px;
+  box-shadow:0 4px 20px rgba(37,211,102,.45);
   flex-shrink:0;
-}
-.bonus-icon-wrap.blue{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.2)}
-
-.bonus-card h3{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--t1);margin-bottom:10px;line-height:1.2}
-.bonus-card p{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:20px}
-
-.bonus-features{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
-.bonus-features li{
   position:relative;
-  padding-left:28px;
-  font-size:13px;
-  color:var(--t2);
-  line-height:1.6;
-  text-align:left;
 }
-.bonus-features li::before{
-  content:'✓';
-  position:absolute;
-  left:0;
-  top:2px;
-  width:18px;height:18px;border-radius:50%;
-  background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);
-  color:var(--g);font-size:10px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
+#wpp-float-btn svg{width:30px;height:30px;fill:#fff}
+/* Anel pulsante */
+#wpp-float-btn::after{
+  content:'';
+  position:absolute;inset:0;border-radius:50%;
+  background:rgba(37,211,102,.4);
+  animation:wpp-pulse 2.4s ease-out infinite;
 }
-
-.bonus-preview{
-  background:#020710;border:1px solid #1a2540;border-radius:12px;
-  overflow:hidden;margin-top:4px;
+@keyframes wpp-pulse{
+  0%{transform:scale(1);opacity:.7}
+  70%{transform:scale(1.55);opacity:0}
+  100%{transform:scale(1.55);opacity:0}
 }
-.bonus-prev-bar{
-  display:flex;align-items:center;gap:6px;padding:9px 14px;
-  background:#060e1e;border-bottom:1px solid #1a2540;
+#wpp-float-btn:hover{background:#1ebe5d;box-shadow:0 6px 28px rgba(37,211,102,.6)}
+@media(max-width:480px){
+  #wpp-float{bottom:18px;right:16px}
+  #wpp-float-btn{width:52px;height:52px}
 }
-.bonus-prev-dot{width:8px;height:8px;border-radius:50%}
-.bonus-prev-title{font-size:10px;color:#3d5070;font-family:'DM Mono',monospace;margin-left:6px}
-.bonus-prev-body{padding:14px 16px;font-family:'DM Mono',monospace;font-size:11px;line-height:1.75}
-
-.bonus-val{
-  display:flex;align-items:center;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.05);
-}
-.bonus-val-gratis{font-size:16px;font-weight:800;color:var(--g)}
-.bonus-val-orig{font-size:13px;color:var(--t3);text-decoration:line-through}
-.bonus-val-desc{font-size:12px;color:var(--t2);margin-left:auto}
-
-.bonus-total{
-  max-width:960px;margin:48px auto 0;
-  background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(16,185,129,.07));
-  border:1px solid rgba(245,158,11,.25);border-radius:16px;
-  padding:24px 32px;
-  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
-}
-.bonus-total-txt{flex:1;min-width:200px}
-.bonus-total-txt h4{font-size:17px;font-weight:700;color:var(--t1);margin-bottom:4px}
-.bonus-total-txt p{font-size:14px;color:var(--t2)}
-.bonus-total-val{text-align:right;flex-shrink:0}
-.bonus-total-val .gratis-label{font-size:13px;font-weight:600;color:var(--t3);text-decoration:line-through;margin-bottom:2px}
-.bonus-total-val .gratis-val{font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:var(--g);line-height:1}
 
 </style>
 <script>
@@ -1607,6 +1551,16 @@ footer{
 </script>
 </head>
 <body>
+
+<!-- WHATSAPP FLUTUANTE -->
+<a href="#" id="wpp-float" target="_blank" rel="noopener" aria-label="Fale pelo WhatsApp" style="display:none">
+  <span id="wpp-float-label">Fale conosco</span>
+  <span id="wpp-float-btn">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </span>
+</a>
 
 <!-- NAV -->
 <nav>
@@ -1814,8 +1768,6 @@ footer{
               <div class="sc-sb-item"><span class="sc-sb-icon">🔍</span> Importar</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📜</span> Gerar Roteiros</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📊</span> Bancos</div>
-              <div class="sc-sb-item"><span class="sc-sb-icon">✂️</span> Divisor de Texto</div>
-              <div class="sc-sb-item"><span class="sc-sb-icon">🔇</span> Remover Silêncio</div>
               <div class="sc-sb-bot">
                 <div class="sc-sb-canal">
                   <div class="sc-sb-canal-lbl">Canal Ativo</div>
@@ -1902,8 +1854,6 @@ footer{
               <div class="sc-sb-item active"><span class="sc-sb-icon">🔍</span> Importar</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📜</span> Gerar Roteiros</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📊</span> Bancos</div>
-              <div class="sc-sb-item"><span class="sc-sb-icon">✂️</span> Divisor de Texto</div>
-              <div class="sc-sb-item"><span class="sc-sb-icon">🔇</span> Remover Silêncio</div>
               <div class="sc-sb-bot">
                 <div class="sc-sb-canal">
                   <div class="sc-sb-canal-lbl">Canal Ativo</div>
@@ -2003,8 +1953,6 @@ footer{
               <div class="sc-sb-item"><span class="sc-sb-icon">🔍</span> Importar</div>
               <div class="sc-sb-item active"><span class="sc-sb-icon">📜</span> Gerar Roteiros</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📊</span> Bancos</div>
-              <div class="sc-sb-item"><span class="sc-sb-icon">✂️</span> Divisor de Texto</div>
-              <div class="sc-sb-item"><span class="sc-sb-icon">🔇</span> Remover Silêncio</div>
               <div class="sc-sb-bot">
                 <div class="sc-sb-canal">
                   <div class="sc-sb-canal-lbl">Canal Ativo</div>
@@ -2113,8 +2061,6 @@ footer{
               <div class="sc-sb-item"><span class="sc-sb-icon">🔍</span> Importar</div>
               <div class="sc-sb-item"><span class="sc-sb-icon">📜</span> Gerar Roteiros</div>
               <div class="sc-sb-item active"><span class="sc-sb-icon">📊</span> Bancos</div>
-              <div class="sc-sb-item"><span class="sc-sb-icon">✂️</span> Divisor de Texto</div>
-              <div class="sc-sb-item"><span class="sc-sb-icon">🔇</span> Remover Silêncio</div>
               <div class="sc-sb-bot">
                 <div class="sc-sb-canal">
                   <div class="sc-sb-canal-lbl">Canal Ativo</div>
@@ -2331,120 +2277,8 @@ footer{
   </div>
 </section>
 
-<!-- BÔNUS -->
-<div class="sec-sep"></div>
-<section class="bonus" id="bonus">
-  <div class="container">
-
-    <div class="bonus-header reveal">
-      <div class="section-label">Bônus exclusivos</div>
-      <div class="bonus-ribbon">🎁 &nbsp; Incluído em todos os planos — valor R$ 194</div>
-      <h2>Duas ferramentas extras,<br><em>já dentro do sistema</em></h2>
-      <p>Além do gerador de roteiros, você recebe dois bônus integrados que aceleram ainda mais sua produção — sem instalar nada a mais.</p>
-    </div>
-
-    <div class="bonus-grid reveal">
-
-      <!-- BÔNUS 1: DIVISOR DE TEXTO -->
-      <div class="bonus-card">
-        <div class="bonus-card-top blue"></div>
-        <div class="bonus-card-body">
-          <div class="bonus-tag blue">✂️ &nbsp; Bônus #1</div>
-          <div class="bonus-icon-wrap blue">✂️</div>
-          <h3>Divisor de Texto Inteligente</h3>
-          <p>Cole qualquer roteiro e divida em blocos prontos para narração, edição ou postagem em partes — sem cortar frases no meio.</p>
-          <ul class="bonus-features">
-            <li>Divide por <strong>caracteres</strong> — ideal para limites de TTS e legendas</li>
-            <li>Divide por <strong>palavras</strong> — controle exato de tempo por bloco</li>
-            <li>Divide por <strong>parágrafos/sentenças</strong> — blocos narrativos naturais</li>
-            <li>Contador de caracteres, palavras e <strong>tempo estimado de narração</strong></li>
-            <li>Copiar em 1 clique por bloco — direto para o TTS</li>
-            <li>Salva todos os blocos em .txt com um clique</li>
-          </ul>
-          <div class="bonus-preview">
-            <div class="bonus-prev-bar">
-              <div class="bonus-prev-dot" style="background:#ef4444;opacity:.7"></div>
-              <div class="bonus-prev-dot" style="background:#f59e0b;opacity:.7"></div>
-              <div class="bonus-prev-dot" style="background:#10b981;opacity:.7"></div>
-              <span class="bonus-prev-title">✂️ Divisor de Texto — aba integrada</span>
-            </div>
-            <div class="bonus-prev-body">
-              <div style="color:#3d5070;font-size:10px;margin-bottom:7px">Modo: <span style="color:#818cf8">Parágrafos · 4500 chars/bloco</span></div>
-              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
-                <div style="background:#091428;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:10px;color:#818cf8">📋 Bloco 1</div>
-                <div style="background:#091428;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:10px;color:#818cf8">📋 Bloco 2</div>
-                <div style="background:#091428;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:10px;color:#818cf8">📋 Bloco 3</div>
-                <div style="background:#091428;border:1px solid rgba(16,185,129,.3);border-radius:6px;padding:4px 10px;font-size:10px;color:#4ade80">📋 Bloco 4</div>
-              </div>
-              <div style="color:#3d5070;font-size:10px">Caracteres: 17.842 &nbsp;·&nbsp; Palavras: 2.681 &nbsp;·&nbsp; ⏱️ Narração: 18min 10s</div>
-            </div>
-          </div>
-          <div class="bonus-val">
-            <span class="bonus-val-orig">R$ 97</span>
-            <span class="bonus-val-gratis">GRÁTIS</span>
-            <span class="bonus-val-desc">incluso em todos os planos</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- BÔNUS 2: REMOVEDOR DE SILÊNCIO -->
-      <div class="bonus-card">
-        <div class="bonus-card-top"></div>
-        <div class="bonus-card-body">
-          <div class="bonus-tag">🔇 &nbsp; Bônus #2</div>
-          <div class="bonus-icon-wrap">🔇</div>
-          <h3>Removedor de Silêncio com FFmpeg</h3>
-          <p>Processe seus áudios gravados em lote e remova silêncios automaticamente — economizando horas de edição manual toda semana.</p>
-          <ul class="bonus-features">
-            <li>Processa <strong>múltiplos arquivos</strong> de uma vez — .wav, .mp3, .m4a, .flac</li>
-            <li>Controle de <strong>duração mínima</strong> e <strong>threshold de volume</strong> (dB)</li>
-            <li>Exibe duração original, final e <strong>% de redução</strong> por arquivo</li>
-            <li>Arquivo salvo com <strong>_nosil</strong> — original sempre preservado</li>
-            <li>Log em tempo real de cada processamento</li>
-            <li>Totalmente <strong>local</strong> — usa FFmpeg gratuito no seu PC</li>
-          </ul>
-          <div class="bonus-preview">
-            <div class="bonus-prev-bar">
-              <div class="bonus-prev-dot" style="background:#ef4444;opacity:.7"></div>
-              <div class="bonus-prev-dot" style="background:#f59e0b;opacity:.7"></div>
-              <div class="bonus-prev-dot" style="background:#10b981;opacity:.7"></div>
-              <span class="bonus-prev-title">🔇 Remover Silêncio — aba integrada</span>
-            </div>
-            <div class="bonus-prev-body">
-              <div style="color:#3d5070;font-size:10px;margin-bottom:7px">⚙️ periods=<span style="color:#f59e0b">-1</span> &nbsp;·&nbsp; duration=<span style="color:#f59e0b">0.50s</span> &nbsp;·&nbsp; threshold=<span style="color:#f59e0b">-40dB</span></div>
-              <div style="color:#4ade80;font-size:10px;line-height:1.85">
-                ✅ audio_01.wav &nbsp;·&nbsp; 3min 42s → 3min 09s <span style="color:#10b981">(-15.3%)</span><br>
-                ✅ audio_02.wav &nbsp;·&nbsp; 8min 11s → 6min 58s <span style="color:#10b981">(-14.9%)</span><br>
-                <span style="color:#818cf8">⏳ audio_03.wav &nbsp;·&nbsp; processando...</span>
-              </div>
-            </div>
-          </div>
-          <div class="bonus-val">
-            <span class="bonus-val-orig">R$ 97</span>
-            <span class="bonus-val-gratis">GRÁTIS</span>
-            <span class="bonus-val-desc">incluso em todos os planos</span>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /bonus-grid -->
-
-    <div class="bonus-total reveal">
-      <div style="font-size:36px;flex-shrink:0">🎁</div>
-      <div class="bonus-total-txt">
-        <h4>Valor total dos bônus: R$ 194 — você paga R$ 0</h4>
-        <p>Divisor de Texto + Removedor de Silêncio já estão integrados no sistema. Nenhuma instalação extra, nenhuma conta adicional, nenhum custo a mais.</p>
-      </div>
-      <div class="bonus-total-val">
-        <div class="gratis-label">De R$ 194</div>
-        <div class="gratis-val">GRÁTIS</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
 <!-- NICHOS -->
+<section class="nichos">
   <div class="container">
     <div class="nichos-header reveal">
       <div class="section-label">Para qualquer nicho</div>
@@ -2554,8 +2388,6 @@ footer{
           <li>Geração em batch</li>
           <li>Legenda SRT inclusa</li>
           <li>Todos os 16 nichos</li>
-          <li>✂️ <strong>Divisor de Texto</strong> incluso</li>
-          <li>🔇 <strong>Removedor de Silêncio</strong> incluso</li>
           <li class="nao">Suporte prioritário</li>
           <li class="nao">Treinamento 1-a-1</li>
         </ul>
@@ -2580,8 +2412,6 @@ footer{
           <li>Geração em batch</li>
           <li>Legenda SRT inclusa</li>
           <li>Todos os 16 nichos</li>
-          <li>✂️ <strong>Divisor de Texto</strong> incluso</li>
-          <li>🔇 <strong>Removedor de Silêncio</strong> incluso</li>
           <li>Suporte via WhatsApp</li>
           <li class="nao">Treinamento 1-a-1</li>
         </ul>
@@ -2608,8 +2438,6 @@ footer{
           <li>Geração em batch</li>
           <li>Legenda SRT inclusa</li>
           <li>Todos os 16 nichos</li>
-          <li>✂️ <strong>Divisor de Texto</strong> incluso</li>
-          <li>🔇 <strong>Removedor de Silêncio</strong> incluso</li>
           <li>Suporte prioritário 24h</li>
           <li>Treinamento 1-a-1 incluso</li>
         </ul>
@@ -2637,30 +2465,30 @@ footer{
     <div class="trial-text reveal">
       <div class="section-label">Experimente antes de pagar</div>
       <h2>Quer testar antes<br>de <em>tomar a decisão</em>?</h2>
-      <p>Entendemos que você quer ver o sistema funcionando antes de investir. Por isso oferecemos um período de teste — com acesso real ao sistema, sem cartão de crédito.</p>
-      <p>Entre em contato pelo WhatsApp ou e-mail e solicite seu trial. Você escolhe quantos dias quer testar e quantos roteiros gerar — a gente configura na hora.</p>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-top:24px">
-        <a href="#" id="link-whatsapp-trial"
-           style="display:inline-flex;align-items:center;gap:8px;
-                  background:transparent;color:var(--g);
-                  border:1.5px solid rgba(16,185,129,.4);border-radius:100px;
-                  padding:13px 28px;font-size:15px;font-weight:600;
-                  text-decoration:none;white-space:nowrap;
-                  transition:all .2s;font-family:'DM Sans',sans-serif;"
-           onmouseover="this.style.background='rgba(16,185,129,.1)'"
-           onmouseout="this.style.background='transparent'">
-          💬 Solicitar trial pelo WhatsApp
-        </a>
-        <div style="font-size:12px;color:var(--t3);margin-top:8px">Resposta em até 24h • Sem compromisso</div>
+      <p>Preencha o formulário ao lado e receba sua chave de trial <strong>automaticamente no seu e-mail</strong> em segundos — sem precisar falar com ninguém.</p>
+      <p>Acesso real ao sistema, sem cartão de crédito, sem compromisso.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:28px">
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);display:flex;align-items:center;justify-content:center;color:var(--g);font-size:13px;font-weight:700;flex-shrink:0">1</div>
+          Preencha nome, e-mail e telefone
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);display:flex;align-items:center;justify-content:center;color:var(--g);font-size:13px;font-weight:700;flex-shrink:0">2</div>
+          Receba a chave por e-mail automaticamente
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2)">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);display:flex;align-items:center;justify-content:center;color:var(--g);font-size:13px;font-weight:700;flex-shrink:0">3</div>
+          Ative no sistema e comece a usar agora
+        </div>
       </div>
     </div>
 
-    <!-- Card direita -->
+    <!-- Card formulário de captura -->
     <div class="reveal">
-      <div class="trial-card">
+      <div class="trial-card" id="trial-form-wrap">
         <div class="trial-badge">🧪 Período de teste gratuito</div>
-        <h3>Trial personalizado</h3>
-        <p class="trial-sub">Acesso completo ao sistema por tempo limitado</p>
+        <h3>Solicitar trial</h3>
+        <p class="trial-sub">Preencha e receba sua chave em segundos</p>
 
         <div class="trial-config">
           <div class="trial-stat">
@@ -2673,16 +2501,52 @@ footer{
           </div>
         </div>
 
-        <ul class="trial-itens">
-          <li><div class="ic-g">✓</div> Acesso total a todas as funcionalidades</li>
-          <li><div class="ic-g">✓</div> Importe seus próprios roteiros de exemplo</li>
-          <li><div class="ic-g">✓</div> Gere roteiros de verdade no seu nicho</li>
-          <li><div class="ic-g">✓</div> Sem cartão de crédito necessário</li>
-          <li><div class="ic-g">✓</div> Suporte direto durante o trial</li>
-        </ul>
+        <!-- Formulário -->
+        <div id="trial-form" style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px">
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <label style="font-size:12px;font-weight:600;color:var(--t2)">Nome completo *</label>
+            <input id="trial-nome" type="text" placeholder="João da Silva"
+              style="background:#040a14;border:1px solid #1e2d4a;border-radius:10px;padding:12px 14px;font-size:14px;color:var(--t1);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s"
+              onfocus="this.style.borderColor='#6366f1'" onblur="this.style.borderColor='#1e2d4a'">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <label style="font-size:12px;font-weight:600;color:var(--t2)">E-mail *</label>
+            <input id="trial-email" type="email" placeholder="joao@email.com"
+              style="background:#040a14;border:1px solid #1e2d4a;border-radius:10px;padding:12px 14px;font-size:14px;color:var(--t1);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s"
+              onfocus="this.style.borderColor='#6366f1'" onblur="this.style.borderColor='#1e2d4a'">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <label style="font-size:12px;font-weight:600;color:var(--t2)">WhatsApp / Telefone *</label>
+            <input id="trial-tel" type="tel" placeholder="(17) 99999-9999"
+              style="background:#040a14;border:1px solid #1e2d4a;border-radius:10px;padding:12px 14px;font-size:14px;color:var(--t1);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s"
+              onfocus="this.style.borderColor='#6366f1'" onblur="this.style.borderColor='#1e2d4a'">
+          </div>
+          <div id="trial-erro" style="display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px 14px;font-size:13px;color:#f87171"></div>
+        </div>
 
-        <a href="#" id="btn-trial-cta" class="btn-trial">Quero meu período de teste →</a>
-        <p class="trial-note">Disponibilidade sujeita à análise. Apenas uma solicitação por pessoa.</p>
+        <button id="btn-trial-cta" onclick="enviarSolicitacaoTrial()"
+          class="btn-trial" style="cursor:pointer;border:none;width:100%">
+          ⚡ Quero meu trial gratuito →
+        </button>
+        <p class="trial-note">Chave enviada automaticamente para seu e-mail · Sem cartão de crédito</p>
+      </div>
+
+      <!-- Tela de sucesso (oculta inicialmente) -->
+      <div id="trial-sucesso" style="display:none">
+        <div class="trial-card" style="text-align:center;padding:40px 28px">
+          <div style="font-size:52px;margin-bottom:16px">🎉</div>
+          <h3 style="margin-bottom:8px">Trial ativado!</h3>
+          <p class="trial-sub" style="margin-bottom:20px">Sua chave foi enviada para o e-mail cadastrado</p>
+          <div style="background:#040a14;border:1px solid rgba(16,185,129,.3);border-radius:12px;padding:18px;margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--t2);letter-spacing:.5px;margin-bottom:8px">SUA CHAVE DE TRIAL</div>
+            <div id="trial-chave-exibir" style="font-family:'DM Mono',monospace;font-size:20px;font-weight:700;color:#10b981;letter-spacing:2px;word-break:break-all"></div>
+          </div>
+          <button onclick="navigator.clipboard.writeText(document.getElementById('trial-chave-exibir').textContent).then(()=>this.textContent='✅ Copiado!')"
+            class="btn-trial" style="cursor:pointer;border:none;width:100%;margin-bottom:12px">
+            📋 Copiar chave
+          </button>
+          <p style="font-size:12px;color:var(--t3)">Verifique também seu e-mail — enviamos um guia de ativação completo.</p>
+        </div>
       </div>
     </div>
 
@@ -2787,7 +2651,6 @@ footer{
       <h4>Produto</h4>
       <a href="#como-funciona">Como funciona</a>
       <a href="#recursos">Recursos</a>
-      <a href="#bonus">Bônus inclusos</a>
       <a href="#pricing">Planos e preços</a>
       <a href="#screenshots">Ver o sistema</a>
     </div>
@@ -2846,7 +2709,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ══════════════════════════════════════════════
 (async function carregarConfigServidor(){
   try {
-    const resp = await fetch('https://web-production-1bb0.up.railway.app/config/ler', {cache:'no-store'});
+    const resp = await fetch('https://gerador.criadorpro.com.br/config/ler', {cache:'no-store'});
     if(!resp.ok) return;
     const cfg = await resp.json();
     if(!Object.keys(cfg).length) return;
@@ -2925,8 +2788,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // WhatsApp
     if(cfg.whatsapp){
-      const wurl = 'https://wa.me/' + cfg.whatsapp.replace(/\D/g,'') + '?text=' + encodeURIComponent('Olá! Gostaria de solicitar um trial do Gerador Universal de Roteiros.');
-      ['link-whatsapp-trial','btn-trial-cta'].forEach(id => { const el = document.getElementById(id); if(el) el.setAttribute('href', wurl); });
+      const num  = cfg.whatsapp.replace(/\D/g,'');
+      const msgTrial = 'Olá! Gostaria de solicitar um trial do Gerador Universal de Roteiros.';
+      const msgGeral = cfg.whatsapp_msg || 'Olá! Tenho interesse no Gerador Universal de Roteiros.';
+      const wurlTrial = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msgTrial);
+      const wurlGeral = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msgGeral);
+
+      // Botões da seção trial
+      ['link-whatsapp-trial','btn-trial-cta'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.setAttribute('href', wurlTrial);
+      });
+
+      // Botão flutuante — respeitar cfg.wpp_float_ativo
+      const floatBtn = document.getElementById('wpp-float');
+      const floatLabel = document.getElementById('wpp-float-label');
+      if(floatBtn){
+        const floatAtivo = cfg.wpp_float_ativo !== '0'; // '0' = desabilitado
+        if(floatAtivo && cfg.whatsapp){
+          floatBtn.setAttribute('href', wurlGeral);
+          floatBtn.style.display = 'flex';
+          if(cfg.whatsapp_label && floatLabel) floatLabel.textContent = cfg.whatsapp_label;
+          setTimeout(() => floatBtn.classList.add('visible'), 1500);
+          setTimeout(() => {
+            floatBtn.classList.add('pulse');
+            setTimeout(() => floatBtn.classList.remove('pulse'), 4000);
+          }, 4000);
+        }
+      }
     }
 
     // Email
@@ -2946,5 +2835,68 @@ document.addEventListener('DOMContentLoaded', () => {
   } catch(e) { console.warn('Config servidor indisponível:', e.message); }
 })();
 </script>
-</body>
+
+<script>
+// ── FORMULÁRIO DE TRIAL ────────────────────────────────────────
+const _SERVIDOR = 'https://gerador.criadorpro.com.br';
+
+async function enviarSolicitacaoTrial(){
+  const nome  = (document.getElementById('trial-nome')?.value || '').trim();
+  const email = (document.getElementById('trial-email')?.value || '').trim();
+  const tel   = (document.getElementById('trial-tel')?.value || '').trim();
+  const erroEl = document.getElementById('trial-erro');
+  const btn    = document.getElementById('btn-trial-cta');
+
+  // Validação
+  erroEl.style.display = 'none';
+  if(!nome){ _trialErro('Por favor, informe seu nome completo.'); return; }
+  if(!email || !email.includes('@')){ _trialErro('Por favor, informe um e-mail válido.'); return; }
+  if(!tel){ _trialErro('Por favor, informe seu WhatsApp ou telefone.'); return; }
+
+  btn.textContent = '⏳ Enviando...';
+  btn.disabled = true;
+
+  try {
+    const resp = await fetch(_SERVIDOR + '/trial/solicitar', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({nome, email, telefone: tel})
+    });
+    const data = await resp.json();
+
+    if(!resp.ok){
+      // 409 = e-mail já tem trial
+      const msg = resp.status === 409
+        ? 'Este e-mail já possui um trial cadastrado. Verifique sua caixa de entrada.'
+        : (data.detail || 'Erro ao processar solicitação. Tente novamente.');
+      _trialErro(msg);
+      btn.textContent = '⚡ Quero meu trial gratuito →';
+      btn.disabled = false;
+      return;
+    }
+
+    // Sucesso — mostrar tela de confirmação
+    const chaveEl = document.getElementById('trial-chave-exibir');
+    if(chaveEl) chaveEl.textContent = data.license_key || '';
+    document.getElementById('trial-form-wrap').style.display = 'none';
+    document.getElementById('trial-sucesso').style.display = 'block';
+
+  } catch(e){
+    _trialErro('Falha de conexão. Verifique sua internet e tente novamente.');
+    btn.textContent = '⚡ Quero meu trial gratuito →';
+    btn.disabled = false;
+  }
+}
+
+function _trialErro(msg){
+  const el = document.getElementById('trial-erro');
+  if(el){ el.textContent = '⚠️ ' + msg; el.style.display = 'block'; }
+}
+
+// Enter nos campos dispara o envio
+['trial-nome','trial-email','trial-tel'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('keydown', e => { if(e.key === 'Enter') enviarSolicitacaoTrial(); });
+});
+</script>
 </html>
