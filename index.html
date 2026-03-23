@@ -6,6 +6,51 @@
 <title>Gerador Universal de Roteiros — IA que escreve por você</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+// Injeta Pixel do Facebook e GA4 dinamicamente a partir do servidor
+(async function(){
+  try {
+    const r = await fetch('https://gerador.criadorpro.com.br/config/ler',{cache:'no-store'});
+    if(!r.ok) return;
+    const cfg = await r.json();
+
+    // ── Facebook Pixel ──────────────────────────────────────
+    if(cfg.fb_pixel_id && cfg.fb_pixel_id.trim()){
+      const pid = cfg.fb_pixel_id.trim();
+      !function(f,b,e,v,n,t,s){
+        if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)
+      }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      window.fbq('init', pid);
+      window.fbq('track', 'PageView');
+      window._fb_pixel_id = pid;
+    }
+
+    // ── Google Analytics 4 ──────────────────────────────────
+    if(cfg.ga4_id && cfg.ga4_id.trim()){
+      const gid = cfg.ga4_id.trim();
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gid;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', gid);
+      window._ga4_id = gid;
+    }
+  } catch(e){ /* silencioso — não bloqueia a página */ }
+})();
+
+// Helpers para disparar eventos de conversão
+function trackEvent(evento, params){
+  try { if(window.fbq) window.fbq('track', evento, params||{}); } catch(e){}
+  try { if(window.gtag) window.gtag('event', evento, params||{}); } catch(e){}
+}
+</script>
 <style>
 :root{
   --ink:#030812;
@@ -2395,7 +2440,7 @@ footer{
           <a href="#" class="price-cta-platform" id="cta-basico-1" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-basico-2" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-basico-3" style="display:none"></a>
-          <a href="#" class="price-cta-platform fallback-basico">Assinar agora →</a>
+          <a href="#" class="price-cta-platform fallback-basico" onclick="trackEvent('InitiateCheckout',{content_name:'Plano Básico'})">Assinar agora →</a>
         </div>
       </div>
       <!-- PRO -->
@@ -2419,7 +2464,7 @@ footer{
           <a href="#" class="price-cta-platform" id="cta-pro-1" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-pro-2" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-pro-3" style="display:none"></a>
-          <a href="#" class="price-cta-platform fallback-pro">Assinar agora →</a>
+          <a href="#" class="price-cta-platform fallback-pro" onclick="trackEvent('InitiateCheckout',{content_name:'Plano Pro'})">Assinar agora →</a>
         </div>
         <div style="text-align:center;margin-top:10px;font-size:12px;color:#6ee7b7;display:flex;align-items:center;justify-content:center;gap:6px">
           <span>🛡️</span> Garantia de 7 dias — sem risco
@@ -2445,7 +2490,7 @@ footer{
           <a href="#" class="price-cta-platform" id="cta-ilimitado-1" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-ilimitado-2" style="display:none"></a>
           <a href="#" class="price-cta-platform" id="cta-ilimitado-3" style="display:none"></a>
-          <a href="#" class="price-cta-platform fallback-ilimitado">Assinar agora →</a>
+          <a href="#" class="price-cta-platform fallback-ilimitado" onclick="trackEvent('InitiateCheckout',{content_name:'Plano Ilimitado'})">Assinar agora →</a>
         </div>
       </div>
     </div>
@@ -2678,6 +2723,20 @@ const _revealObs = new IntersectionObserver((entries) => {
 }, {threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el => _revealObs.observe(el));
 
+// Rastrear ViewContent quando seção de preços aparece
+let _viewContentFired = false;
+const _pricingObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting && !_viewContentFired){
+      _viewContentFired = true;
+      trackEvent('ViewContent', {content_name:'Pricing Section'});
+      _pricingObs.disconnect();
+    }
+  });
+}, {threshold:0.3});
+const _pricingSection = document.getElementById('pricing');
+if(_pricingSection) _pricingObs.observe(_pricingSection);
+
 // ── FAQ toggle ────────────────────────────────────────────────────
 function tfaq(btn){
   const item   = btn.parentElement;
@@ -2880,6 +2939,7 @@ async function enviarSolicitacaoTrial(){
     }
 
     // Sucesso — mostrar tela de confirmação
+    trackEvent('Lead', {content_name: 'Trial Gratuito', email});
     const chaveEl = document.getElementById('trial-chave-exibir');
     if(chaveEl) chaveEl.textContent = data.license_key || '';
     document.getElementById('trial-form-wrap').style.display = 'none';
