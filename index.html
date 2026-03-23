@@ -2680,10 +2680,19 @@ document.querySelectorAll('.reveal').forEach(el => _revealObs.observe(el));
 
 // ── FAQ toggle ────────────────────────────────────────────────────
 function tfaq(btn){
-  const item = btn.parentElement;
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-  if(!isOpen) item.classList.add('open');
+  const item   = btn.parentElement;
+  const answer = item.querySelector('.faq-a');
+  const isOpen = btn.classList.contains('open');
+
+  // Fechar todos
+  document.querySelectorAll('.faq-q.open').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
+
+  // Abrir o clicado (se estava fechado)
+  if(!isOpen){
+    btn.classList.add('open');
+    if(answer) answer.classList.add('open');
+  }
 }
 
 // ── Screenshots tabs ──────────────────────────────────────────────
@@ -2707,133 +2716,128 @@ document.addEventListener('DOMContentLoaded', () => {
 // ══════════════════════════════════════════════
 // CARREGAR CONFIG DO SERVIDOR AO INICIAR
 // ══════════════════════════════════════════════
-(async function carregarConfigServidor(){
-  try {
-    const resp = await fetch('https://gerador.criadorpro.com.br/config/ler', {cache:'no-store'});
-    if(!resp.ok) return;
-    const cfg = await resp.json();
-    if(!Object.keys(cfg).length) return;
+async function _aplicarConfigServidor(cfg){
+  if(!cfg || !Object.keys(cfg).length) return;
 
-    const T = (sel, txt) => { const e = document.querySelector(sel); if(e && txt) e.innerHTML = txt; };
+  const T = (sel, txt) => { const e = document.querySelector(sel); if(e && txt) e.innerHTML = txt; };
+  const setText = (sel, txt) => { const e = document.querySelector(sel); if(e && txt) e.textContent = txt; };
 
-    // Hero
-    const h1 = document.querySelector('.hero h1');
-    if(h1 && (cfg.h1 || cfg.h2 || cfg.h3)){
-      h1.innerHTML = (cfg.h1||'Chega de') + '<br>' + (cfg.h2||'roteiro em branco.') + '<br><em>' + (cfg.h3||'A IA escreve por você.') + '</em>';
-    }
-    T('.hero-sub', cfg.sub);
-    if(cfg.eyebrow){ const ey = document.querySelector('.hero-eyebrow'); if(ey) ey.textContent = '● ' + cfg.eyebrow.replace(/^●\s*/,''); }
-    document.querySelectorAll('.btn-primary').forEach(b => { if(cfg.cta1 && b.textContent.includes('Quero')) b.textContent = cfg.cta1; });
-    document.querySelectorAll('.btn-ghost').forEach(b => { if(cfg.cta2 && b.textContent.includes('funciona')) b.textContent = cfg.cta2; });
+  // Hero
+  const h1 = document.querySelector('.hero h1');
+  if(h1 && (cfg.h1 || cfg.h2 || cfg.h3)){
+    h1.innerHTML = (cfg.h1||'Chega de') + '<br>' + (cfg.h2||'roteiro em branco.') + '<br><em>' + (cfg.h3||'A IA escreve por você.') + '</em>';
+  }
+  T('.hero-sub', cfg.sub);
+  if(cfg.eyebrow){ const ey = document.querySelector('.hero-eyebrow'); if(ey) ey.textContent = '● ' + cfg.eyebrow.replace(/^●\s*/,''); }
+  document.querySelectorAll('.btn-primary').forEach(b => { if(cfg.cta1 && b.textContent.includes('Quero')) b.textContent = cfg.cta1; });
+  document.querySelectorAll('.btn-ghost').forEach(b => { if(cfg.cta2 && b.textContent.includes('funciona')) b.textContent = cfg.cta2; });
 
-    // Stats hero
-    const statNums = document.querySelectorAll('.hero-stat-num');
-    const statLbls = document.querySelectorAll('.hero-stat-lbl');
-    [cfg.stat1_num, cfg.stat2_num, cfg.stat3_num].forEach((v,i) => { if(statNums[i] && v) statNums[i].textContent = v; });
-    [cfg.stat1_lbl, cfg.stat2_lbl, cfg.stat3_lbl].forEach((v,i) => { if(statLbls[i] && v) statLbls[i].textContent = v; });
+  // Stats hero
+  const statNums = document.querySelectorAll('.hero-stat-num');
+  const statLbls = document.querySelectorAll('.hero-stat-lbl');
+  [cfg.stat1_num, cfg.stat2_num, cfg.stat3_num].forEach((v,i) => { if(statNums[i] && v) statNums[i].textContent = v; });
+  [cfg.stat1_lbl, cfg.stat2_lbl, cfg.stat3_lbl].forEach((v,i) => { if(statLbls[i] && v) statLbls[i].textContent = v; });
 
-    // Planos
-    document.querySelectorAll('.price-val').forEach((el,i) => {
-      const v = [cfg.preco_basico, cfg.preco_pro, cfg.preco_ilimitado][i];
-      if(v) el.innerHTML = '<sup>R$</sup>' + v;
+  // Preços — atualiza direto pelos índices 0, 1, 2
+  const precos = [cfg.preco_basico, cfg.preco_pro, cfg.preco_ilimitado];
+  const nomesPlano = [cfg.p1_nome, cfg.p2_nome, cfg.p3_nome];
+  document.querySelectorAll('.price-val').forEach((el, i) => {
+    if(precos[i]) el.innerHTML = '<sup>R$</sup>' + precos[i];
+  });
+  document.querySelectorAll('.price-plan').forEach((el, i) => {
+    if(nomesPlano[i]) el.textContent = nomesPlano[i];
+  });
+
+  // Links checkout
+  function aplicarLinksCheckout(){
+    const urls = [cfg.url_basico, cfg.url_pro, cfg.url_ilimitado];
+    ['basico','pro','ilimitado'].forEach((plano, i) => {
+      if(!urls[i]) return;
+      const fb = document.querySelector('.fallback-' + plano);
+      if(fb){ fb.setAttribute('href', urls[i]); fb.setAttribute('target','_blank'); }
     });
-    document.querySelectorAll('.price-plan').forEach((el,i) => {
-      const v = [cfg.p1_nome, cfg.p2_nome, cfg.p3_nome][i];
-      if(v) el.textContent = v;
-    });
-
-    // Links checkout — aplicar imediatamente e também após 1s (garantia)
-    function aplicarLinksCheckout(){
-      const urls = [cfg.url_basico, cfg.url_pro, cfg.url_ilimitado];
-      ['basico','pro','ilimitado'].forEach((plano, i) => {
-        if(!urls[i]) return;
-        // Só atualizar o botão fallback — não mostrar slots ocultos
-        const fb = document.querySelector('.fallback-' + plano);
-        if(fb){
-          fb.setAttribute('href', urls[i]);
-          fb.setAttribute('target','_blank');
-        }
+    if(cfg.url_geral){
+      document.querySelectorAll('a.btn-primary, a.cta-btn-main').forEach(a => {
+        a.setAttribute('href', cfg.url_geral);
+        a.setAttribute('target','_blank');
       });
-      if(cfg.url_geral){
-        document.querySelectorAll('a.btn-primary, a.cta-btn-main').forEach(a => {
-          a.setAttribute('href', cfg.url_geral);
-          a.setAttribute('target','_blank');
-        });
-      }
     }
-    aplicarLinksCheckout();
-    setTimeout(aplicarLinksCheckout, 1000);
+  }
+  aplicarLinksCheckout();
+  setTimeout(aplicarLinksCheckout, 800);
 
-    // Prova social
-    const nCards = document.querySelectorAll('.num-card .n');
-    const nLbls  = document.querySelectorAll('.num-card p');
-    [cfg.num1,cfg.num2,cfg.num3,cfg.num4].forEach((v,i) => { if(nCards[i] && v) nCards[i].textContent = v; });
-    [cfg.num1_lbl,cfg.num2_lbl,cfg.num3_lbl,cfg.num4_lbl].forEach((v,i) => { if(nLbls[i] && v) nLbls[i].textContent = v; });
+  // Prova social
+  const nCards = document.querySelectorAll('.num-card .n');
+  const nLbls  = document.querySelectorAll('.num-card p');
+  [cfg.num1,cfg.num2,cfg.num3,cfg.num4].forEach((v,i) => { if(nCards[i] && v) nCards[i].textContent = v; });
+  [cfg.num1_lbl,cfg.num2_lbl,cfg.num3_lbl,cfg.num4_lbl].forEach((v,i) => { if(nLbls[i] && v) nLbls[i].textContent = v; });
 
-    const testis = document.querySelectorAll('.testi');
-    [[cfg.t1_nome,cfg.t1_canal,cfg.t1_txt],[cfg.t2_nome,cfg.t2_canal,cfg.t2_txt],[cfg.t3_nome,cfg.t3_canal,cfg.t3_txt]].forEach(([nome,canal,txt],i) => {
-      if(!testis[i]) return;
-      const n = testis[i].querySelector('.testi-name'); if(n && nome) n.textContent = nome;
-      const c = testis[i].querySelector('.testi-canal'); if(c && canal) c.textContent = canal;
-      const t = testis[i].querySelector('.testi-text');  if(t && txt)  t.textContent = txt;
-    });
+  const testis = document.querySelectorAll('.testi');
+  [[cfg.t1_nome,cfg.t1_canal,cfg.t1_txt],[cfg.t2_nome,cfg.t2_canal,cfg.t2_txt],[cfg.t3_nome,cfg.t3_canal,cfg.t3_txt]].forEach(([nome,canal,txt],i) => {
+    if(!testis[i]) return;
+    const n = testis[i].querySelector('.testi-name'); if(n && nome) n.textContent = nome;
+    const c = testis[i].querySelector('.testi-canal'); if(c && canal) c.textContent = canal;
+    const t = testis[i].querySelector('.testi-text');  if(t && txt)  t.textContent = txt;
+  });
 
-    // Trial
-    if(cfg.trial_dias){ const td = document.getElementById('trial-dias-val'); if(td) td.textContent = cfg.trial_dias; }
-    if(cfg.trial_rot){  const tr = document.getElementById('trial-rot-val');  if(tr) tr.textContent = cfg.trial_rot; }
-    const tBenef = document.querySelectorAll('.trial-itens li');
-    [cfg.trial_b1,cfg.trial_b2,cfg.trial_b3,cfg.trial_b4].forEach((txt,i) => {
-      if(tBenef[i] && txt) tBenef[i].innerHTML = '<div class="ic-g">✓</div> ' + txt;
-    });
+  // Trial — dias e roteiros
+  const tdEl = document.getElementById('trial-dias-val');
+  const trEl = document.getElementById('trial-rot-val');
+  if(tdEl && cfg.trial_dias) tdEl.textContent = cfg.trial_dias;
+  if(trEl && cfg.trial_rot)  trEl.textContent = cfg.trial_rot;
 
-    // WhatsApp
-    if(cfg.whatsapp){
-      const num  = cfg.whatsapp.replace(/\D/g,'');
-      const msgTrial = 'Olá! Gostaria de solicitar um trial do Gerador Universal de Roteiros.';
-      const msgGeral = cfg.whatsapp_msg || 'Olá! Tenho interesse no Gerador Universal de Roteiros.';
-      const wurlTrial = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msgTrial);
-      const wurlGeral = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msgGeral);
+  // WhatsApp
+  if(cfg.whatsapp){
+    const num     = cfg.whatsapp.replace(/\D/g,'');
+    const msgGeral = cfg.whatsapp_msg || 'Olá! Tenho interesse no Gerador Universal de Roteiros.';
+    const wurlGeral = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msgGeral);
 
-      // Botões da seção trial
-      ['link-whatsapp-trial','btn-trial-cta'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) el.setAttribute('href', wurlTrial);
-      });
-
-      // Botão flutuante — respeitar cfg.wpp_float_ativo
-      const floatBtn = document.getElementById('wpp-float');
-      const floatLabel = document.getElementById('wpp-float-label');
-      if(floatBtn){
-        const floatAtivo = cfg.wpp_float_ativo !== '0'; // '0' = desabilitado
-        if(floatAtivo && cfg.whatsapp){
-          floatBtn.setAttribute('href', wurlGeral);
-          floatBtn.style.display = 'flex';
-          if(cfg.whatsapp_label && floatLabel) floatLabel.textContent = cfg.whatsapp_label;
-          setTimeout(() => floatBtn.classList.add('visible'), 1500);
-          setTimeout(() => {
-            floatBtn.classList.add('pulse');
-            setTimeout(() => floatBtn.classList.remove('pulse'), 4000);
-          }, 4000);
-        }
-      }
+    // Botão flutuante — só exibe se wpp_float_ativo != '0'
+    const floatBtn   = document.getElementById('wpp-float');
+    const floatLabel = document.getElementById('wpp-float-label');
+    if(floatBtn && cfg.wpp_float_ativo !== '0'){
+      floatBtn.setAttribute('href', wurlGeral);
+      floatBtn.style.display = 'flex';
+      if(floatLabel && cfg.whatsapp_label) floatLabel.textContent = cfg.whatsapp_label;
+      setTimeout(() => floatBtn.classList.add('visible'), 1500);
+      setTimeout(() => {
+        floatBtn.classList.add('pulse');
+        setTimeout(() => floatBtn.classList.remove('pulse'), 4000);
+      }, 4000);
     }
+  }
 
-    // Email
-    if(cfg.email){ document.querySelectorAll('a[href^="mailto"]').forEach(a => { a.setAttribute('href','mailto:'+cfg.email); a.textContent = cfg.email; }); }
+  // Email
+  if(cfg.email){ document.querySelectorAll('a[href^="mailto"]').forEach(a => { a.setAttribute('href','mailto:'+cfg.email); a.textContent = cfg.email; }); }
 
-    // Footer
-    const fbDesc = document.querySelector('.footer-brand p'); if(fbDesc && cfg.footer_desc) fbDesc.textContent = cfg.footer_desc;
+  // Footer
+  const fbDesc = document.querySelector('.footer-brand p');
+  if(fbDesc && cfg.footer_desc) fbDesc.textContent = cfg.footer_desc;
 
-    // CTA final
-    const ctaH2 = document.querySelector('.cta-final h2');
-    if(ctaH2 && (cfg.cta_h1||cfg.cta_h2)) ctaH2.innerHTML = (cfg.cta_h1||'Pare de escrever.') + '<br><em>' + (cfg.cta_h2||'Comece a publicar.') + '</em>';
-    T('.cta-final-desc', cfg.cta_desc);
-    const ctaBtn = document.querySelector('.cta-btn-main'); if(ctaBtn && cfg.cta_btn) ctaBtn.textContent = cfg.cta_btn;
-    const selos = document.querySelectorAll('.cta-selos span');
-    [cfg.selo1,cfg.selo2,cfg.selo3,cfg.selo4].forEach((v,i) => { if(selos[i] && v) selos[i].textContent = v; });
+  // CTA final
+  const ctaH2 = document.querySelector('.cta-final h2');
+  if(ctaH2 && (cfg.cta_h1||cfg.cta_h2)) ctaH2.innerHTML = (cfg.cta_h1||'Pare de escrever.') + '<br><em>' + (cfg.cta_h2||'Comece a publicar.') + '</em>';
+  T('.cta-final-desc', cfg.cta_desc);
+  const ctaBtn = document.querySelector('.cta-btn-main');
+  if(ctaBtn && cfg.cta_btn) ctaBtn.textContent = cfg.cta_btn;
+  const selos = document.querySelectorAll('.cta-selos span');
+  [cfg.selo1,cfg.selo2,cfg.selo3,cfg.selo4].forEach((v,i) => { if(selos[i] && v) selos[i].textContent = v; });
+}
 
-  } catch(e) { console.warn('Config servidor indisponível:', e.message); }
-})();
+// Garante que o DOM está 100% pronto antes de buscar e aplicar
+function _iniciarConfigServidor(){
+  fetch('https://gerador.criadorpro.com.br/config/ler', {cache:'no-store'})
+    .then(r => r.ok ? r.json() : {})
+    .then(cfg => _aplicarConfigServidor(cfg))
+    .catch(e => console.warn('[Config] Servidor indisponível:', e.message));
+}
+
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', _iniciarConfigServidor);
+} else {
+  // DOM já pronto (script no final do body)
+  _iniciarConfigServidor();
+}
 </script>
 
 <script>
