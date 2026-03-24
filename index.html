@@ -8,30 +8,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script>
 // Injeta Pixel do Facebook e GA4 dinamicamente a partir do servidor
-(async function(){
-  try {
-    const r = await fetch('https://gerador.criadorpro.com.br/config/ler',{cache:'no-store'});
-    if(!r.ok) return;
-    const cfg = await r.json();
+function _injetarRastreamento(cfg){
+  // ── Facebook Pixel ──────────────────────────────────────
+  if(cfg.fb_pixel_id && cfg.fb_pixel_id.trim() && !window.fbq){
+    const pid = cfg.fb_pixel_id.trim();
+    !function(f,b,e,v,n,t,s){
+      if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)
+    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', pid);
+    window.fbq('track', 'PageView');
+    window._fb_pixel_id = pid;
+    // Noscript fallback
+    const noscript = document.createElement('noscript');
+    noscript.innerHTML = '<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id='+pid+'&ev=PageView&noscript=1"/>';
+    document.body.appendChild(noscript);
+  }
 
-    // ── Facebook Pixel ──────────────────────────────────────
-    if(cfg.fb_pixel_id && cfg.fb_pixel_id.trim()){
-      const pid = cfg.fb_pixel_id.trim();
-      !function(f,b,e,v,n,t,s){
-        if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)
-      }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      window.fbq('init', pid);
-      window.fbq('track', 'PageView');
-      window._fb_pixel_id = pid;
-    }
-
-    // ── Google Analytics 4 ──────────────────────────────────
-    if(cfg.ga4_id && cfg.ga4_id.trim()){
-      const gid = cfg.ga4_id.trim();
+  // ── Google Analytics 4 ──────────────────────────────────
+  if(cfg.ga4_id && cfg.ga4_id.trim() && cfg.ga4_id.startsWith('G-')){
+    const gid = cfg.ga4_id.trim();
+    if(!window._ga4_loaded){
+      window._ga4_loaded = true;
       const s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gid;
@@ -40,16 +42,30 @@
       window.gtag = function(){ window.dataLayer.push(arguments); };
       window.gtag('js', new Date());
       window.gtag('config', gid);
-      window._ga4_id = gid;
     }
-  } catch(e){ /* silencioso — não bloqueia a página */ }
-})();
+  }
+}
 
 // Helpers para disparar eventos de conversão
 function trackEvent(evento, params){
   try { if(window.fbq) window.fbq('track', evento, params||{}); } catch(e){}
   try { if(window.gtag) window.gtag('event', evento, params||{}); } catch(e){}
 }
+
+// Executa após DOM pronto
+(function(){
+  function init(){
+    fetch('https://gerador.criadorpro.com.br/config/ler',{cache:'no-store'})
+      .then(r => r.ok ? r.json() : {})
+      .then(cfg => _injetarRastreamento(cfg))
+      .catch(()=>{});
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
 <style>
 :root{
